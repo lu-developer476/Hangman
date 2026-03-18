@@ -59,7 +59,6 @@
                     <div class="pole vertical"></div>
                     <div class="pole horizontal"></div>
 
-                    <!-- 🔥 ESTA ERA LA PIEZA QUE TE FALTABA -->
                     <div class="rope"></div>
 
                     <div class="character">
@@ -117,6 +116,7 @@
                             name="letter"
                             type="text"
                             maxlength="1"
+                            inputmode="text"
                             autocomplete="off"
                             autofocus
                             required
@@ -140,7 +140,7 @@
                             class="key {{ item.state }}"
                             type="submit"
                             name="letter"
-                            value="{{ item.letter }}"
+                            value="{{ item.value }}"
                             aria-label="Letra {{ item.letter }}"
                             {% if item.state != 'idle' or status != 'playing' %}disabled{% endif %}
                         >
