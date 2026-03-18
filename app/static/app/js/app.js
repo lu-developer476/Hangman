@@ -11,13 +11,3 @@ document.addEventListener('DOMContentLoaded', () => {
         .slice(0, 1);              // máximo 1 carácter
     });
   }
-
-  // =========================
-  // FOOTER - AÑO AUTOMÁTICO
-  // =========================
-  const yearElement = document.querySelector('#year');
-
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-  }
-});
