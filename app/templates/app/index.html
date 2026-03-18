@@ -4,19 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahorcado Retro Toon</title>
-    <meta name="description" content="Un ahorcado con estilo cartoon retro. Simple, rápido y con personalidad. Hecho con Django y listo para jugar en cualquier momento.">
+    <title>Ahorcado</title>
+    <meta name="description" content="Un ahorcado con estilo cartoon retro.">
     <link rel="stylesheet" href="{% static 'app/css/styles.css' %}">
 </head>
 <body>
     <div class="page-noise"></div>
-    <main class="layout">
 
+    <main class="layout">
         <section class="hero-card">
             <div class="hero-copy">
-                <p class="eyebrow">Django · Python · Render</p>
-
-                <h1>Ahorcado Retro Toon</h1>
+                <h1>Estilo Retro Toon</h1>
 
                 <p class="lead">
                     Un clásico de toda la vida, pero con estética cartoon y un poco más de actitud.
@@ -26,40 +24,41 @@
                 <div class="actions">
                     <form action="{% url 'new_game' %}" method="post">
                         {% csrf_token %}
-                        <button class="btn btn-primary" type="submit">Arrancar partida</button>
+                        <button class="btn btn-primary" type="submit">Nueva partida</button>
                     </form>
 
                     <form action="{% url 'reset_game' %}" method="post">
                         {% csrf_token %}
-                        <button class="btn btn-secondary" type="submit">Volver a cero</button>
+                        <button class="btn btn-secondary" type="submit">Reiniciar</button>
                     </form>
                 </div>
             </div>
 
             <div class="sticker-box">
                 <div class="sticker">
-                    <span>vibra retro</span>
-                    <strong>cartoon</strong>
+                    <span>🕵</span>
+                    <strong>❓</strong>
                 </div>
             </div>
         </section>
 
         <section class="game-grid">
-
             <article class="panel gallows-panel">
                 <div class="panel-header">
                     <h2>Escenario</h2>
                     <span class="pill">Errores: {{ errors }}/{{ max_errors }}</span>
                 </div>
 
-                <div class="gallows-scene errors-{{ errors }}">
+                <div class="gallows-scene scene-{{ scene }} errors-{{ errors }}">
                     <div class="sun"></div>
                     <div class="cloud cloud-a"></div>
                     <div class="cloud cloud-b"></div>
                     <div class="ground"></div>
+
                     <div class="pole base"></div>
                     <div class="pole vertical"></div>
                     <div class="pole horizontal"></div>
+
                     <div class="rope"></div>
                     <div class="head"></div>
                     <div class="body"></div>
@@ -67,13 +66,14 @@
                     <div class="arm right"></div>
                     <div class="leg left"></div>
                     <div class="leg right"></div>
+                    <div class="face dead"></div>
                 </div>
 
                 <div class="status-box {{ status }}">
                     {% if status == 'won' %}
                         <strong>Ganaste.</strong> Muy bien, seguí así.
                     {% elif status == 'lost' %}
-                        <strong>Perdiste.</strong> ¡Ups! Perdiste. La palabra correcta era <span>{{ word }}</span>.
+                        <strong>Perdiste.</strong> ¡Ups!La palabra correcta era <span>{{ word }}</span>.
                     {% else %}
                         <strong>En juego.</strong> Todavía podés resolverlo, ánimo.
                     {% endif %}
@@ -115,6 +115,7 @@
                             autocomplete="off"
                             autofocus
                             required
+                            {% if status != 'playing' %}disabled{% endif %}
                         >
 
                         <button
@@ -135,18 +136,26 @@
                             type="submit"
                             name="letter"
                             value="{{ item.letter }}"
+                            aria-label="Letra {{ item.letter }}"
                             {% if item.state != 'idle' or status != 'playing' %}disabled{% endif %}
                         >
                             {{ item.letter }}
                         </button>
                     {% endfor %}
                 </form>
-
             </article>
-
         </section>
-
     </main>
+
+    <footer class="footer">
+        <span class="footer-item">© <span id="year"></span> Todos los derechos reservados</span>
+        <span class="footer-separator" aria-hidden="true">•</span>
+        <span class="footer-item">Built with Python &amp; Django</span>
+        <span class="footer-separator" aria-hidden="true">•</span>
+        <span class="footer-item">UX/UI Interface</span>
+        <span class="footer-separator" aria-hidden="true">•</span>
+        <span class="footer-item">Deployed on Render ®</span>
+    </footer>
 
     <script src="{% static 'app/js/app.js' %}"></script>
 </body>
