@@ -479,11 +479,11 @@ h1 {
 }
 
 .rope {
-    width: 8px;
+    width: 6px;
     height: 58px;
-    left: 252px;
+    left: 253px;
     bottom: 276px;
-    background: #ffe8a3;
+    background: #000;
     border: none;
     display: none;
 }
@@ -493,8 +493,10 @@ h1 {
    ========================= */
 
 .character {
-    left: 244px;
+    left: 247px;
     bottom: 122px;
+    width: 18px;
+    height: 170px;
 }
 
 .head {
@@ -509,6 +511,8 @@ h1 {
 }
 
 .body {
+    left: 0;
+    bottom: 0;
     width: 18px;
     height: 96px;
     background: #ff7c43;
@@ -523,19 +527,19 @@ h1 {
     background: #ffb26b;
     border: var(--border);
     border-radius: 12px;
-    top: 6px;
+    top: 4px;
     transform-origin: top center;
     display: none;
 }
 
 .arm.left {
-    left: -28px;
-    transform: rotate(35deg);
+    left: -30px;
+    transform: rotate(34deg);
 }
 
 .arm.right {
-    right: -28px;
-    transform: rotate(-35deg);
+    right: -30px;
+    transform: rotate(-34deg);
 }
 
 .leg {
@@ -544,19 +548,19 @@ h1 {
     background: #7b8cff;
     border: var(--border);
     border-radius: 12px;
-    top: 86px;
+    top: 84px;
     transform-origin: top center;
     display: none;
 }
 
 .leg.left {
-    left: -6px;
-    transform: rotate(25deg);
+    left: -8px;
+    transform: rotate(24deg);
 }
 
 .leg.right {
-    right: -6px;
-    transform: rotate(-25deg);
+    right: -8px;
+    transform: rotate(-24deg);
 }
 
 /* Etapa 8 opcional: agregar en HTML
@@ -565,8 +569,8 @@ h1 {
 .face.dead {
     width: 42px;
     height: 18px;
-    left: 232px;
-    bottom: 238px;
+    left: 10px;
+    bottom: 122px;
     display: none;
     pointer-events: none;
 }
