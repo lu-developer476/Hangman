@@ -92,18 +92,6 @@ body {
     z-index: 1;
 }
 
-.eyebrow {
-    display: inline-block;
-    margin: 0 0 12px;
-    padding: 8px 12px;
-    border: var(--border);
-    border-radius: 999px;
-    background: var(--cyan);
-    font-weight: 900;
-    font-size: 0.82rem;
-    letter-spacing: 0.12em;
-}
-
 h1 {
     margin: 0;
     font-size: clamp(2.2rem, 5vw, 4.1rem);
@@ -249,13 +237,40 @@ h1 {
     background: linear-gradient(180deg, #9be7ff 0%, #d1f5ff 54%, #feeaa1 54%, #ffd166 100%);
 }
 
+/* =========================
+   ESCENARIOS
+   Usar en HTML:
+   <div class="gallows-scene scene-1 errors-{{ errors }}">
+   ========================= */
+
+.gallows-scene.scene-1 {
+    background: linear-gradient(180deg, #9be7ff 0%, #d1f5ff 54%, #feeaa1 54%, #ffd166 100%);
+}
+
+.gallows-scene.scene-2 {
+    background: linear-gradient(180deg, #6ec5ff 0%, #bde7ff 48%, #d7f0ff 48%, #c7f29b 100%);
+}
+
+.gallows-scene.scene-3 {
+    background: linear-gradient(180deg, #8a5cff 0%, #c7b8ff 44%, #ffd6a5 44%, #ffb86b 100%);
+}
+
+.gallows-scene.scene-4 {
+    background: linear-gradient(180deg, #14213d 0%, #2d4f7c 46%, #6fa3d6 46%, #7dd87d 100%);
+}
+
+.gallows-scene.scene-5 {
+    background: linear-gradient(180deg, #ffb3c6 0%, #ffd6e0 46%, #ffe8a3 46%, #f4a261 100%);
+}
+
 .sun,
 .cloud,
 .head,
 .body,
 .arm,
 .leg,
-.rope {
+.rope,
+.face {
     position: absolute;
 }
 
@@ -267,6 +282,27 @@ h1 {
     border: var(--border);
     top: 28px;
     right: 32px;
+}
+
+.gallows-scene.scene-2 .sun {
+    background: #fff27a;
+    top: 24px;
+    right: 28px;
+}
+
+.gallows-scene.scene-3 .sun {
+    background: #ff9f68;
+    top: 36px;
+    right: 34px;
+}
+
+.gallows-scene.scene-4 .sun {
+    background: #f8f4ff;
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+.gallows-scene.scene-5 .sun {
+    background: #ffde59;
 }
 
 .cloud {
@@ -325,6 +361,10 @@ h1 {
     top: -22px;
 }
 
+.gallows-scene.scene-4 .cloud {
+    background: rgba(255, 255, 255, 0.92);
+}
+
 .ground {
     position: absolute;
     left: 0;
@@ -343,10 +383,74 @@ h1 {
     border-top: var(--border);
 }
 
+.gallows-scene.scene-2 .ground {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(35, 25, 66, 0.10),
+            rgba(35, 25, 66, 0.10) 18px,
+            transparent 18px,
+            transparent 36px
+        ),
+        #6bcf63;
+}
+
+.gallows-scene.scene-3 .ground {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(35, 25, 66, 0.10),
+            rgba(35, 25, 66, 0.10) 18px,
+            transparent 18px,
+            transparent 36px
+        ),
+        #d98c48;
+}
+
+.gallows-scene.scene-4 .ground {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.08) 18px,
+            transparent 18px,
+            transparent 36px
+        ),
+        #4caf50;
+}
+
+.gallows-scene.scene-5 .ground {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(35, 25, 66, 0.10),
+            rgba(35, 25, 66, 0.10) 18px,
+            transparent 18px,
+            transparent 36px
+        ),
+        #f6bd60;
+}
+
 .pole {
     position: absolute;
     background: #9c6644;
     border: var(--border);
+}
+
+.gallows-scene.scene-2 .pole {
+    background: #8d5524;
+}
+
+.gallows-scene.scene-3 .pole {
+    background: #7f5539;
+}
+
+.gallows-scene.scene-4 .pole {
+    background: #5c4033;
+}
+
+.gallows-scene.scene-5 .pole {
+    background: #b56576;
 }
 
 .base {
@@ -408,7 +512,6 @@ h1 {
 .arm {
     width: 16px;
     height: 64px;
-    left: 246px;
     bottom: 176px;
     background: #ff9f68;
     border: var(--border);
@@ -418,17 +521,18 @@ h1 {
 }
 
 .arm.left {
-    transform: rotate(42deg);
+    left: 226px;
+    transform: rotate(48deg);
 }
 
 .arm.right {
-    transform: rotate(-42deg);
+    left: 262px;
+    transform: rotate(-48deg);
 }
 
 .leg {
     width: 16px;
     height: 74px;
-    left: 246px;
     bottom: 68px;
     background: #7b8cff;
     border: var(--border);
@@ -438,19 +542,68 @@ h1 {
 }
 
 .leg.left {
+    left: 232px;
     transform: rotate(28deg);
 }
 
 .leg.right {
+    left: 256px;
     transform: rotate(-28deg);
 }
+
+/* Etapa 8 opcional: agregar en HTML
+   <div class="face dead"></div>
+*/
+.face.dead {
+    width: 42px;
+    height: 18px;
+    left: 232px;
+    bottom: 238px;
+    display: none;
+    pointer-events: none;
+}
+
+.face.dead::before,
+.face.dead::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-top: 4px solid var(--ink);
+    border-left: 4px solid var(--ink);
+    top: 0;
+}
+
+.face.dead::before {
+    left: 2px;
+    transform: rotate(45deg);
+}
+
+.face.dead::after {
+    right: 2px;
+    transform: rotate(225deg);
+}
+
+/* =========================
+   PROGRESIÓN DE 8 ERRORES
+   1 cuerda
+   2 cabeza
+   3 cuerpo
+   4 brazo izq
+   5 brazo der
+   6 pierna izq
+   7 pierna der
+   8 cara final
+   ========================= */
 
 .gallows-scene.errors-1 .rope,
 .gallows-scene.errors-2 .rope,
 .gallows-scene.errors-3 .rope,
 .gallows-scene.errors-4 .rope,
 .gallows-scene.errors-5 .rope,
-.gallows-scene.errors-6 .rope {
+.gallows-scene.errors-6 .rope,
+.gallows-scene.errors-7 .rope,
+.gallows-scene.errors-8 .rope {
     display: block;
 }
 
@@ -458,30 +611,48 @@ h1 {
 .gallows-scene.errors-3 .head,
 .gallows-scene.errors-4 .head,
 .gallows-scene.errors-5 .head,
-.gallows-scene.errors-6 .head {
+.gallows-scene.errors-6 .head,
+.gallows-scene.errors-7 .head,
+.gallows-scene.errors-8 .head {
     display: block;
 }
 
 .gallows-scene.errors-3 .body,
 .gallows-scene.errors-4 .body,
 .gallows-scene.errors-5 .body,
-.gallows-scene.errors-6 .body {
+.gallows-scene.errors-6 .body,
+.gallows-scene.errors-7 .body,
+.gallows-scene.errors-8 .body {
     display: block;
 }
 
 .gallows-scene.errors-4 .arm.left,
 .gallows-scene.errors-5 .arm.left,
-.gallows-scene.errors-6 .arm.left {
+.gallows-scene.errors-6 .arm.left,
+.gallows-scene.errors-7 .arm.left,
+.gallows-scene.errors-8 .arm.left {
     display: block;
 }
 
 .gallows-scene.errors-5 .arm.right,
-.gallows-scene.errors-6 .arm.right {
+.gallows-scene.errors-6 .arm.right,
+.gallows-scene.errors-7 .arm.right,
+.gallows-scene.errors-8 .arm.right {
     display: block;
 }
 
 .gallows-scene.errors-6 .leg.left,
-.gallows-scene.errors-6 .leg.right {
+.gallows-scene.errors-7 .leg.left,
+.gallows-scene.errors-8 .leg.left {
+    display: block;
+}
+
+.gallows-scene.errors-7 .leg.right,
+.gallows-scene.errors-8 .leg.right {
+    display: block;
+}
+
+.gallows-scene.errors-8 .face.dead {
     display: block;
 }
 
@@ -578,14 +749,44 @@ h1 {
 }
 
 .key {
+    appearance: none;
     display: grid;
     place-items: center;
+    width: 100%;
     min-height: 44px;
     border: var(--border);
     border-radius: 14px;
     background: white;
     text-transform: uppercase;
     font-weight: 900;
+    font-size: 1rem;
+    color: var(--ink);
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+    box-shadow: 0 5px 0 rgba(35, 25, 66, 0.9);
+}
+
+.key:hover:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 rgba(35, 25, 66, 0.9);
+}
+
+.key:active:not(:disabled) {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 rgba(35, 25, 66, 0.9);
+}
+
+.key:focus-visible {
+    outline: none;
+    box-shadow:
+        0 5px 0 rgba(35, 25, 66, 0.9),
+        0 0 0 4px rgba(93, 226, 231, 0.4);
+}
+
+.key:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
 }
 
 .key.hit {
@@ -598,6 +799,31 @@ h1 {
 
 .key.idle {
     background: #f9f0ff;
+}
+
+.footer {
+    margin-top: 24px;
+    padding: 18px 20px;
+    border: var(--border);
+    border-radius: 24px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    font-weight: 900;
+}
+
+.footer-item {
+    display: inline-flex;
+    align-items: center;
+}
+
+.footer-separator {
+    opacity: 0.7;
 }
 
 @media (min-width: 1024px) {
@@ -664,5 +890,15 @@ h1 {
 
     .word-display {
         letter-spacing: 0.14em;
+    }
+
+    .footer {
+        gap: 8px;
+        padding: 16px;
+        font-size: 0.9rem;
+    }
+
+    .footer-separator {
+        display: none;
     }
 }
