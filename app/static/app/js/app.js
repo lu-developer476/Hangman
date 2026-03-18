@@ -7,8 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (input) {
     input.addEventListener('input', () => {
       input.value = input.value
-        .replace(/[^a-zA-Z]/g, '') // sólo letras
-        .slice(0, 1);              // máximo 1 carácter
+        .toLowerCase()
+        .normalize('NFD') // separa acentos
+        .replace(/[^a-zñ]/g, '') // permite letras + ñ
+        .slice(0, 1); // máximo 1 carácter
     });
   }
 
