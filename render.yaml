@@ -1,0 +1,29 @@
+databases:
+  - name: ahorcado-db
+    databaseName: ahorcado
+    user: ahorcado_user
+    plan: free
+
+services:
+  - type: web
+    name: ahorcado-django
+    runtime: python
+    plan: free
+    buildCommand: ./build.sh
+    startCommand: gunicorn ahorcado.wsgi:application
+    healthCheckPath: /health/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.2
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ahorcado-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
+      - key: CSRF_TRUSTED_ORIGINS
+        value: https://*.onrender.com

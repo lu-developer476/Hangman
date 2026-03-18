@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado Retro Toon</title>
+    <meta name="description" content="Juego del ahorcado hecho con Django, estética caricaturesca retro de los 80/90 y listo para Render.">
+    <link rel="stylesheet" href="{% static 'app/css/styles.css' %}">
+</head>
+<body>
+    <div class="page-noise"></div>
+    <main class="layout">
+        <section class="hero-card">
+            <div class="hero-copy">
+                <p class="eyebrow">DJANGO + PYTHON + RENDER</p>
+                <h1>Ahorcado Retro Toon</h1>
+                <p class="lead">
+                    Minimalista, caricaturesco y con vibra de tele de tubo. El juego es simple: pensá una letra,
+                    pegale antes de que el muñeco quede decorativo.
+                </p>
+                <div class="actions">
+                    <form action="{% url 'new_game' %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" type="submit">Nueva partida</button>
+                    </form>
+                    <form action="{% url 'reset_game' %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-secondary" type="submit">Reiniciar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="sticker-box">
+                <div class="sticker">
+                    <span>80s / 90s</span>
+                    <strong>cartoon</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="game-grid">
+            <article class="panel gallows-panel">
+                <div class="panel-header">
+                    <h2>Escenario</h2>
+                    <span class="pill">Errores: {{ errors }}/{{ max_errors }}</span>
+                </div>
+
+                <div class="gallows-scene errors-{{ errors }}">
+                    <div class="sun"></div>
+                    <div class="cloud cloud-a"></div>
+                    <div class="cloud cloud-b"></div>
+                    <div class="ground"></div>
+                    <div class="pole base"></div>
+                    <div class="pole vertical"></div>
+                    <div class="pole horizontal"></div>
+                    <div class="rope"></div>
+                    <div class="head"></div>
+                    <div class="body"></div>
+                    <div class="arm left"></div>
+                    <div class="arm right"></div>
+                    <div class="leg left"></div>
+                    <div class="leg right"></div>
+                </div>
+
+                <div class="status-box {{ status }}">
+                    {% if status == 'won' %}
+                        <strong>Ganaste.</strong> Milagro estadístico, pero cuenta igual.
+                    {% elif status == 'lost' %}
+                        <strong>Perdiste.</strong> La palabra era <span>{{ word }}</span>.
+                    {% else %}
+                        <strong>En juego.</strong> Todavía hay margen para no hacer papelón.
+                    {% endif %}
+                </div>
+            </article>
+
+            <article class="panel puzzle-panel">
+                <div class="panel-header">
+                    <h2>Palabra</h2>
+                    <span class="pill accent">Progreso: {{ progress_percent }}%</span>
+                </div>
+
+                <p class="hint"><span>Pista:</span> {{ hint }}</p>
+                <div class="word-display" aria-label="Palabra oculta">{{ masked_word }}</div>
+                <p class="message">{{ message }}</p>
+                <p class="wrong-letters"><span>Fallos:</span> {{ wrong_letters }}</p>
+
+                <form class="guess-form" action="{% url 'guess_letter' %}" method="post">
+                    {% csrf_token %}
+                    <label for="letter">Ingresá una letra</label>
+                    <div class="guess-row">
+                        <input id="letter" name="letter" type="text" maxlength="1" autocomplete="off" autofocus required>
+                        <button class="btn btn-primary" type="submit" {% if status != 'playing' %}disabled{% endif %}>Probar</button>
+                    </div>
+                </form>
+
+                <div class="keyboard" aria-label="Letras usadas">
+                    {% for item in alphabet %}
+                        <span class="key {{ item.state }}">{{ item.letter }}</span>
+                    {% endfor %}
+                </div>
+            </article>
+        </section>
+    </main>
+    <script src="{% static 'app/js/app.js' %}"></script>
+</body>
+</html>
