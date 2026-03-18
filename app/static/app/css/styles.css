@@ -265,6 +265,7 @@ h1 {
 
 .sun,
 .cloud,
+.character,
 .head,
 .body,
 .arm,
@@ -487,12 +488,21 @@ h1 {
     display: none;
 }
 
+/* =========================
+   PERSONAJE CORREGIDO
+   ========================= */
+
+.character {
+    left: 244px;
+    bottom: 122px;
+}
+
 .head {
     width: 62px;
     height: 62px;
     border-radius: 50%;
-    left: 222px;
-    bottom: 214px;
+    left: -22px;
+    bottom: 96px;
     background: #fff1d0;
     border: var(--border);
     display: none;
@@ -501,8 +511,6 @@ h1 {
 .body {
     width: 18px;
     height: 96px;
-    left: 244px;
-    bottom: 122px;
     background: #ff7c43;
     border: var(--border);
     border-radius: 12px;
@@ -510,38 +518,45 @@ h1 {
 }
 
 .arm {
-    position: absolute;
-    top: 0;
-    left: 0;
+    width: 16px;
+    height: 56px;
+    background: #ffb26b;
+    border: var(--border);
+    border-radius: 12px;
+    top: 6px;
+    transform-origin: top center;
+    display: none;
 }
 
 .arm.left {
-    transform: rotate(45deg);
+    left: -28px;
+    transform: rotate(35deg);
 }
 
 .arm.right {
-    transform: rotate(-45deg);
+    right: -28px;
+    transform: rotate(-35deg);
 }
 
 .leg {
     width: 16px;
     height: 74px;
-    bottom: 68px;
     background: #7b8cff;
     border: var(--border);
     border-radius: 12px;
+    top: 86px;
     transform-origin: top center;
     display: none;
 }
 
 .leg.left {
-    left: 232px;
-    transform: rotate(28deg);
+    left: -6px;
+    transform: rotate(25deg);
 }
 
 .leg.right {
-    left: 256px;
-    transform: rotate(-28deg);
+    right: -6px;
+    transform: rotate(-25deg);
 }
 
 /* Etapa 8 opcional: agregar en HTML
