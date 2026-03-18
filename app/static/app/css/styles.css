@@ -510,24 +510,17 @@ h1 {
 }
 
 .arm {
-    width: 16px;
-    height: 64px;
-    bottom: 176px;
-    background: #ff9f68;
-    border: var(--border);
-    border-radius: 12px;
-    transform-origin: top center;
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .arm.left {
-    left: 226px;
-    transform: rotate(48deg);
+    transform: rotate(45deg);
 }
 
 .arm.right {
-    left: 262px;
-    transform: rotate(-48deg);
+    transform: rotate(-45deg);
 }
 
 .leg {
