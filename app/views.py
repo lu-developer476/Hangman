@@ -1,5 +1,5 @@
 import random
-import string
+import unicodedata
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -10,6 +10,30 @@ from .words import WORDS
 MAX_ERRORS = 8
 TOTAL_SCENES = 5
 SESSION_KEY = 'hangman_state'
+SPANISH_ALPHABET = 'abcdefghijklmnñopqrstuvwxyz'
+
+
+def _normalize_char(char):
+    """
+    Normaliza vocales acentuadas para jugabilidad:
+    á -> a
+    é -> e
+    í -> i
+    ó -> o
+    ú -> u
+
+    Pero conserva la ñ como letra independiente.
+    """
+    char = char.lower()
+
+    if char == 'ñ':
+        return 'ñ'
+
+    decomposed = unicodedata.normalize('NFD', char)
+    return ''.join(
+        c for c in decomposed
+        if unicodedata.category(c) != 'Mn'
+    )
 
 
 def _create_state():
@@ -42,10 +66,27 @@ def _get_state(request):
 
 def _masked_word(word, guessed):
     guessed_set = set(guessed)
+
     return ' '.join(
-        letter if letter in guessed_set else '_'
+        letter if _normalize_char(letter) in guessed_set else '_'
         for letter in word
     )
+
+
+def _get_unique_letters(word):
+    """
+    Obtiene las letras únicas que el usuario realmente necesita adivinar.
+    Las vocales acentuadas cuentan como su versión sin acento.
+    La ñ se mantiene separada.
+    """
+    unique_letters = set()
+
+    for char in word:
+        normalized = _normalize_char(char)
+        if normalized in SPANISH_ALPHABET:
+            unique_letters.add(normalized)
+
+    return unique_letters
 
 
 def _build_context(state):
@@ -53,10 +94,7 @@ def _build_context(state):
     wrong = state.get('wrong', [])
     word = state['word']
 
-    unique_letters = {
-        char for char in word
-        if char in string.ascii_lowercase
-    }
+    unique_letters = _get_unique_letters(word)
 
     solved = unique_letters.issubset(guessed)
     lost = len(wrong) >= MAX_ERRORS
@@ -72,7 +110,7 @@ def _build_context(state):
     state['status'] = status
 
     alphabet = []
-    for letter in string.ascii_lowercase:
+    for letter in SPANISH_ALPHABET:
         if letter in guessed:
             key_state = 'hit'
         elif letter in wrong:
@@ -131,15 +169,16 @@ def reset_game(request):
 @require_POST
 def guess_letter(request):
     state = _get_state(request)
-    letter = request.POST.get('letter', '').strip().lower()
+    raw_letter = request.POST.get('letter', '').strip().lower()
+    letter = _normalize_char(raw_letter)
 
     if state.get('status') in {'won', 'lost'}:
         state['message'] = 'La partida terminó. Reiniciá y dejá de discutir con el destino.'
         request.session[SESSION_KEY] = state
         return redirect('index')
 
-    if len(letter) != 1 or letter not in string.ascii_lowercase:
-        state['message'] = 'Ingresá una sola letra válida de la a a la z.'
+    if len(raw_letter) != 1 or letter not in SPANISH_ALPHABET:
+        state['message'] = 'Ingresá una sola letra válida, incluyendo la ñ.'
         request.session[SESSION_KEY] = state
         return redirect('index')
 
@@ -148,7 +187,9 @@ def guess_letter(request):
         request.session[SESSION_KEY] = state
         return redirect('index')
 
-    if letter in state['word']:
+    word_letters = _get_unique_letters(state['word'])
+
+    if letter in word_letters:
         state['guessed'].append(letter)
         state['message'] = f'Bien. La letra “{letter.upper()}” sí estaba.'
     else:
@@ -156,10 +197,7 @@ def guess_letter(request):
         state['message'] = f'Nope. La letra “{letter.upper()}” no aparece por ningún lado.'
 
     # Recalcular estado después de cada jugada
-    unique_letters = {
-        char for char in state['word']
-        if char in string.ascii_lowercase
-    }
+    unique_letters = _get_unique_letters(state['word'])
 
     guessed_set = set(state['guessed'])
     solved = unique_letters.issubset(guessed_set)
