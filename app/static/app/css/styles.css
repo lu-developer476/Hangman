@@ -818,8 +818,7 @@ h1 {
 }
 
 .footer-item {
-    display: inline-flex;
-    align-items: center;
+    display: inline;
 }
 
 .footer-separator {
