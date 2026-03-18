@@ -71,11 +71,11 @@
 
                 <div class="status-box {{ status }}">
                     {% if status == 'won' %}
-                        <strong>Ganaste.</strong> La sacaste bien, sin necesidad de sufrir demasiado.
+                        <strong>Ganaste.</strong> Muy bien, seguí así.
                     {% elif status == 'lost' %}
-                        <strong>Perdiste.</strong> Se te fue de las manos. La palabra era <span>{{ word }}</span>.
+                        <strong>Perdiste.</strong> ¡Ups! Perdiste. La palabra correcta era <span>{{ word }}</span>.
                     {% else %}
-                        <strong>En juego.</strong> Todavía estás a tiempo de resolverlo como corresponde.
+                        <strong>En juego.</strong> Todavía podés resolverlo, ánimo.
                     {% endif %}
                 </div>
             </article>
@@ -104,7 +104,7 @@
 
                 <form class="guess-form" action="{% url 'guess_letter' %}" method="post">
                     {% csrf_token %}
-                    <label for="letter">Probá con una letra</label>
+                    <label for="letter">Elegí una letra</label>
 
                     <div class="guess-row">
                         <input
@@ -127,11 +127,20 @@
                     </div>
                 </form>
 
-                <div class="keyboard" aria-label="Teclado de letras">
+                <form class="keyboard" action="{% url 'guess_letter' %}" method="post" aria-label="Teclado de letras">
+                    {% csrf_token %}
                     {% for item in alphabet %}
-                        <span class="key {{ item.state }}">{{ item.letter }}</span>
+                        <button
+                            class="key {{ item.state }}"
+                            type="submit"
+                            name="letter"
+                            value="{{ item.letter }}"
+                            {% if item.state != 'idle' or status != 'playing' %}disabled{% endif %}
+                        >
+                            {{ item.letter }}
+                        </button>
                     {% endfor %}
-                </div>
+                </form>
 
             </article>
 
