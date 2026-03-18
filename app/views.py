@@ -3,7 +3,7 @@ import unicodedata
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.views.decorators.http import require_GET, require_POST
+from django.views.decorators.http import require_POST, require_safe
 
 from .words import WORDS
 
@@ -146,7 +146,7 @@ def _build_context(state):
     }
 
 
-@require_GET
+@require_safe
 def index(request):
     state = _get_state(request)
     context = _build_context(state)
@@ -216,6 +216,6 @@ def guess_letter(request):
     return redirect('index')
 
 
-@require_GET
+@require_safe
 def health(request):
     return HttpResponse('ok', content_type='text/plain')
