@@ -5,40 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahorcado Retro Toon</title>
-    <meta name="description" content="Juego del ahorcado hecho con Django, estética caricaturesca retro de los 80/90 y listo para Render.">
+    <meta name="description" content="Un ahorcado con estilo cartoon retro. Simple, rápido y con personalidad. Hecho con Django y listo para jugar en cualquier momento.">
     <link rel="stylesheet" href="{% static 'app/css/styles.css' %}">
 </head>
 <body>
     <div class="page-noise"></div>
     <main class="layout">
+
         <section class="hero-card">
             <div class="hero-copy">
-                <p class="eyebrow">DJANGO + PYTHON + RENDER</p>
+                <p class="eyebrow">Django · Python · Render</p>
+
                 <h1>Ahorcado Retro Toon</h1>
+
                 <p class="lead">
-                    Minimalista, caricaturesco y con vibra de tele de tubo. El juego es simple: pensá una letra,
-                    pegale antes de que el muñeco quede decorativo.
+                    Un clásico de toda la vida, pero con estética cartoon y un poco más de actitud.
+                    Probá suerte con las letras… y tratá de no condenar al muñeco antes de tiempo.
                 </p>
+
                 <div class="actions">
                     <form action="{% url 'new_game' %}" method="post">
                         {% csrf_token %}
-                        <button class="btn btn-primary" type="submit">Nueva partida</button>
+                        <button class="btn btn-primary" type="submit">Arrancar partida</button>
                     </form>
+
                     <form action="{% url 'reset_game' %}" method="post">
                         {% csrf_token %}
-                        <button class="btn btn-secondary" type="submit">Reiniciar</button>
+                        <button class="btn btn-secondary" type="submit">Volver a cero</button>
                     </form>
                 </div>
             </div>
+
             <div class="sticker-box">
                 <div class="sticker">
-                    <span>80s / 90s</span>
+                    <span>vibra retro</span>
                     <strong>cartoon</strong>
                 </div>
             </div>
         </section>
 
         <section class="game-grid">
+
             <article class="panel gallows-panel">
                 <div class="panel-header">
                     <h2>Escenario</h2>
@@ -64,11 +71,11 @@
 
                 <div class="status-box {{ status }}">
                     {% if status == 'won' %}
-                        <strong>Ganaste.</strong> Milagro estadístico, pero cuenta igual.
+                        <strong>Ganaste.</strong> La sacaste bien, sin necesidad de sufrir demasiado.
                     {% elif status == 'lost' %}
-                        <strong>Perdiste.</strong> La palabra era <span>{{ word }}</span>.
+                        <strong>Perdiste.</strong> Se te fue de las manos. La palabra era <span>{{ word }}</span>.
                     {% else %}
-                        <strong>En juego.</strong> Todavía hay margen para no hacer papelón.
+                        <strong>En juego.</strong> Todavía estás a tiempo de resolverlo como corresponde.
                     {% endif %}
                 </div>
             </article>
@@ -76,31 +83,62 @@
             <article class="panel puzzle-panel">
                 <div class="panel-header">
                     <h2>Palabra</h2>
-                    <span class="pill accent">Progreso: {{ progress_percent }}%</span>
+                    <span class="pill accent">Completado: {{ progress_percent }}%</span>
                 </div>
 
-                <p class="hint"><span>Pista:</span> {{ hint }}</p>
-                <div class="word-display" aria-label="Palabra oculta">{{ masked_word }}</div>
-                <p class="message">{{ message }}</p>
-                <p class="wrong-letters"><span>Fallos:</span> {{ wrong_letters }}</p>
+                <p class="hint">
+                    <span>Pista:</span> {{ hint }}
+                </p>
+
+                <div class="word-display" aria-label="Palabra oculta">
+                    {{ masked_word }}
+                </div>
+
+                <p class="message">
+                    {{ message }}
+                </p>
+
+                <p class="wrong-letters">
+                    <span>Letras fallidas:</span> {{ wrong_letters }}
+                </p>
 
                 <form class="guess-form" action="{% url 'guess_letter' %}" method="post">
                     {% csrf_token %}
-                    <label for="letter">Ingresá una letra</label>
+                    <label for="letter">Probá con una letra</label>
+
                     <div class="guess-row">
-                        <input id="letter" name="letter" type="text" maxlength="1" autocomplete="off" autofocus required>
-                        <button class="btn btn-primary" type="submit" {% if status != 'playing' %}disabled{% endif %}>Probar</button>
+                        <input
+                            id="letter"
+                            name="letter"
+                            type="text"
+                            maxlength="1"
+                            autocomplete="off"
+                            autofocus
+                            required
+                        >
+
+                        <button
+                            class="btn btn-primary"
+                            type="submit"
+                            {% if status != 'playing' %}disabled{% endif %}
+                        >
+                            Intentar
+                        </button>
                     </div>
                 </form>
 
-                <div class="keyboard" aria-label="Letras usadas">
+                <div class="keyboard" aria-label="Teclado de letras">
                     {% for item in alphabet %}
                         <span class="key {{ item.state }}">{{ item.letter }}</span>
                     {% endfor %}
                 </div>
+
             </article>
+
         </section>
+
     </main>
+
     <script src="{% static 'app/js/app.js' %}"></script>
 </body>
 </html>
