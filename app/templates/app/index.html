@@ -47,6 +47,7 @@
                 <div class="panel-header">
                     <h2>Escenario</h2>
                     <span class="pill">Errores: {{ errors }}/{{ max_errors }}</span>
+                    <span class="pill soft">Vidas: {{ remaining_attempts }}</span>
                 </div>
 
                 <div class="gallows-scene scene-{{ scene }} errors-{{ errors }}">
@@ -61,15 +62,17 @@
 
                     <div class="rope"></div>
 
-                    <div class="character">
-                        <div class="head"></div>
-
-                        <div class="body">
-                            <div class="arm left"></div>
-                            <div class="arm right"></div>
-                            <div class="leg left"></div>
-                            <div class="leg right"></div>
+                    <div class="character" aria-hidden="true">
+                        <div class="head">
+                            <div class="face alive"></div>
+                            <div class="face dead"></div>
                         </div>
+
+                        <div class="torso"></div>
+                        <div class="arm left"></div>
+                        <div class="arm right"></div>
+                        <div class="leg left"></div>
+                        <div class="leg right"></div>
                     </div>
                 </div>
 
@@ -93,6 +96,10 @@
                 <p class="hint">
                     <span>Pista:</span> {{ hint }}
                 </p>
+
+                <div class="progress-track" aria-label="Progreso de la palabra">
+                    <div class="progress-fill" style="--progress: {{ progress_percent }}%"></div>
+                </div>
 
                 <div class="word-display" aria-label="Palabra oculta">
                     {{ masked_word }}
