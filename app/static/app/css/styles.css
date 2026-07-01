@@ -65,9 +65,10 @@ body {
 .hero-card {
     padding: 28px;
     display: grid;
-    grid-template-columns: 1.4fr 0.6fr;
-    gap: 24px;
+    grid-template-columns: minmax(280px, 720px) auto;
+    gap: clamp(18px, 4vw, 56px);
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 24px;
     position: relative;
     overflow: hidden;
@@ -77,10 +78,10 @@ body {
 .hero-card::after {
     content: "";
     position: absolute;
-    width: 160px;
-    height: 160px;
-    right: -30px;
-    top: -30px;
+    width: clamp(110px, 12vw, 150px);
+    height: clamp(110px, 12vw, 150px);
+    right: -24px;
+    top: -24px;
     background: var(--yellow);
     border: var(--border);
     border-radius: 50%;
@@ -114,7 +115,7 @@ h1 {
 }
 
 .sticker {
-    width: 220px;
+    width: clamp(150px, 16vw, 210px);
     aspect-ratio: 1;
     border-radius: 50%;
     border: var(--border);
@@ -486,8 +487,8 @@ h1 {
 .rope {
     width: 10px;
     height: 34px;
-    left: 258px;
-    top: 226px;
+    left: 272px;
+    top: 238px;
     background: linear-gradient(90deg, #5d4037 0 30%, #8d6e63 30% 70%, #5d4037 70%);
     border-radius: 999px;
     border: none;
@@ -516,8 +517,8 @@ h1 {
    ========================= */
 
 .character {
-    --neck-x: 258px;
-    --neck-y: 330px;
+    --neck-x: 272px;
+    --neck-y: 342px;
     left: var(--neck-x);
     top: var(--neck-y);
     width: 1px;
@@ -946,10 +947,6 @@ h1 {
         padding: 18px 20px 24px;
     }
 
-    .hero-card {
-        min-height: 32vh;
-    }
-
     .game-grid {
         min-height: calc(100vh - 280px);
     }
@@ -998,14 +995,14 @@ h1 {
     }
 
     .rope {
-        left: 230px;
-        top: 132px;
+        left: 248px;
+        top: 150px;
         height: 28px;
     }
 
     .character {
-        --neck-x: 230px;
-        --neck-y: 206px;
+        --neck-x: 248px;
+        --neck-y: 224px;
         transform: translateX(-50%) scale(0.82);
         transform-origin: top center;
     }
@@ -1068,14 +1065,14 @@ h1 {
     }
 
     .rope {
-        left: 194px;
-        top: 110px;
+        left: 212px;
+        top: 126px;
         height: 24px;
     }
 
     .character {
-        --neck-x: 194px;
-        --neck-y: 176px;
+        --neck-x: 212px;
+        --neck-y: 192px;
         transform: translateX(-50%) scale(0.72);
     }
 
