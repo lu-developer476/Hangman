@@ -136,6 +136,7 @@ def _build_context(state):
         'wrong_letters': ', '.join(wrong).upper() if wrong else 'Ninguna todavía.',
         'errors': len(wrong),
         'max_errors': MAX_ERRORS,
+        'remaining_attempts': max(MAX_ERRORS - len(wrong), 0),
         'message': state.get('message', ''),
         'status': status,
         'word': word,

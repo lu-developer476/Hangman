@@ -168,6 +168,7 @@ h1 {
     justify-content: space-between;
     gap: 12px;
     align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 18px;
 }
 
@@ -188,6 +189,10 @@ h1 {
 
 .pill.accent {
     background: var(--mint);
+}
+
+.pill.soft {
+    background: #f9f0ff;
 }
 
 .btn {
@@ -267,7 +272,7 @@ h1 {
 .cloud,
 .character,
 .head,
-.body,
+.torso,
 .arm,
 .leg,
 .rope,
@@ -479,98 +484,170 @@ h1 {
 }
 
 .rope {
-    width: 6px;
-    height: 58px;
-    left: 253px;
-    bottom: 276px;
-    background: #000;
+    width: 10px;
+    height: 76px;
+    left: min(61%, 253px);
+    top: 226px;
+    background: linear-gradient(90deg, #5d4037 0 30%, #8d6e63 30% 70%, #5d4037 70%);
+    border-radius: 999px;
     border: none;
+    transform: translateX(-50%);
     display: none;
+}
+
+.rope::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -12px;
+    width: 54px;
+    height: 34px;
+    border: 8px solid #5d4037;
+    border-bottom: 0;
+    border-radius: 999px 999px 0 0;
+    transform: translateX(-50%);
 }
 
 /* =========================
-   PERSONAJE CORREGIDO
+   PERSONAJE
+   El punto de anclaje es el centro superior del cuello:
+   cuerda, cabeza, torso y extremidades comparten coordenadas
+   para que cada parte aparezca conectada al fallar.
    ========================= */
 
 .character {
-    left: 247px;
-    bottom: 122px;
-    width: 18px;
-    height: 170px;
+    --neck-x: min(61%, 258px);
+    --neck-y: 300px;
+    left: var(--neck-x);
+    top: var(--neck-y);
+    width: 1px;
+    height: 1px;
+    transform: translateX(-50%);
+    z-index: 3;
 }
 
 .head {
-    width: 62px;
-    height: 62px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    left: -22px;
-    bottom: 96px;
+    left: 50%;
+    top: -70px;
+    transform: translateX(-50%);
     background: #fff1d0;
     border: var(--border);
     display: none;
+    z-index: 4;
 }
 
-.body {
-    left: 0;
-    bottom: 0;
+.head::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -13px;
     width: 18px;
-    height: 96px;
+    height: 14px;
+    background: #fff1d0;
+    border-left: var(--border);
+    border-right: var(--border);
+    transform: translateX(-50%);
+}
+
+.torso {
+    left: 50%;
+    top: 0;
+    width: 28px;
+    height: 98px;
     background: #ff7c43;
     border: var(--border);
-    border-radius: 12px;
+    border-radius: 16px 16px 18px 18px;
+    transform: translateX(-50%);
     display: none;
+    z-index: 2;
 }
 
 .arm {
-    width: 16px;
-    height: 56px;
+    width: 18px;
+    height: 66px;
     background: #ffb26b;
     border: var(--border);
     border-radius: 12px;
-    top: 4px;
+    top: 10px;
     transform-origin: top center;
     display: none;
+    z-index: 1;
 }
 
 .arm.left {
-    left: -30px;
-    transform: rotate(34deg);
+    left: -22px;
+    transform: rotate(38deg);
 }
 
 .arm.right {
-    right: -30px;
-    transform: rotate(-34deg);
+    right: -22px;
+    transform: rotate(-38deg);
 }
 
 .leg {
-    width: 16px;
-    height: 74px;
+    width: 18px;
+    height: 78px;
     background: #7b8cff;
     border: var(--border);
     border-radius: 12px;
-    top: 84px;
+    top: 88px;
     transform-origin: top center;
     display: none;
+    z-index: 1;
 }
 
 .leg.left {
-    left: -8px;
-    transform: rotate(24deg);
+    left: -15px;
+    transform: rotate(18deg);
 }
 
 .leg.right {
-    right: -8px;
-    transform: rotate(-24deg);
+    right: -15px;
+    transform: rotate(-18deg);
 }
 
-/* Etapa 8 opcional: agregar en HTML
-   <div class="face dead"></div>
-*/
-.face.dead {
+.face.alive {
     width: 42px;
-    height: 18px;
-    left: 10px;
-    bottom: 122px;
+    height: 24px;
+    left: 50%;
+    top: 22px;
+    transform: translateX(-50%);
+    display: block;
+}
+
+.face.alive::before,
+.face.alive::after {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    top: 0;
+    background: var(--ink);
+    border-radius: 50%;
+}
+
+.face.alive::before {
+    left: 4px;
+}
+
+.face.alive::after {
+    right: 4px;
+}
+
+.face.alive {
+    border-bottom: 4px solid var(--ink);
+    border-radius: 0 0 999px 999px;
+}
+
+.face.dead {
+    width: 46px;
+    height: 24px;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
     display: none;
     pointer-events: none;
 }
@@ -594,6 +671,11 @@ h1 {
 .face.dead::after {
     right: 2px;
     transform: rotate(225deg);
+}
+
+.face.dead {
+    border-bottom: 4px solid var(--ink);
+    border-radius: 0 0 999px 999px;
 }
 
 /* =========================
@@ -629,12 +711,12 @@ h1 {
     display: block;
 }
 
-.gallows-scene.errors-3 .body,
-.gallows-scene.errors-4 .body,
-.gallows-scene.errors-5 .body,
-.gallows-scene.errors-6 .body,
-.gallows-scene.errors-7 .body,
-.gallows-scene.errors-8 .body {
+.gallows-scene.errors-3 .torso,
+.gallows-scene.errors-4 .torso,
+.gallows-scene.errors-5 .torso,
+.gallows-scene.errors-6 .torso,
+.gallows-scene.errors-7 .torso,
+.gallows-scene.errors-8 .torso {
     display: block;
 }
 
@@ -666,6 +748,10 @@ h1 {
 
 .gallows-scene.errors-8 .face.dead {
     display: block;
+}
+
+.gallows-scene.errors-8 .face.alive {
+    display: none;
 }
 
 .status-box {
@@ -708,6 +794,24 @@ h1 {
 
 .message {
     background: #fff2fb;
+}
+
+.progress-track {
+    height: 22px;
+    border: var(--border);
+    border-radius: 999px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: inset 0 3px 0 rgba(35, 25, 66, 0.12);
+}
+
+.progress-fill {
+    width: var(--progress);
+    min-width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--mint), var(--cyan), var(--blue));
+    border-right: 3px solid rgba(35, 25, 66, 0.45);
+    transition: width 0.25s ease;
 }
 
 .word-display {
@@ -876,6 +980,34 @@ h1 {
     .gallows-scene {
         min-height: 420px;
     }
+
+    .base {
+        left: 46px;
+        bottom: 76px;
+    }
+
+    .vertical {
+        left: 88px;
+        bottom: 90px;
+        height: 220px;
+    }
+
+    .horizontal {
+        left: 88px;
+        bottom: 288px;
+    }
+
+    .rope {
+        left: min(66%, 230px);
+        top: 132px;
+    }
+
+    .character {
+        --neck-x: min(66%, 235px);
+        --neck-y: 206px;
+        transform: translateX(-50%) scale(0.82);
+        transform-origin: top center;
+    }
 }
 
 @media (max-width: 620px) {
@@ -901,6 +1033,49 @@ h1 {
 
     .word-display {
         letter-spacing: 0.14em;
+    }
+
+    .gallows-scene {
+        min-height: 380px;
+    }
+
+    .sun {
+        width: 56px;
+        height: 56px;
+    }
+
+    .cloud-b {
+        display: none;
+    }
+
+    .base {
+        width: 136px;
+        left: 30px;
+        bottom: 66px;
+    }
+
+    .vertical {
+        left: 66px;
+        bottom: 80px;
+        height: 206px;
+    }
+
+    .horizontal {
+        width: 142px;
+        left: 66px;
+        bottom: 264px;
+    }
+
+    .rope {
+        left: min(72%, 194px);
+        top: 110px;
+        height: 68px;
+    }
+
+    .character {
+        --neck-x: min(72%, 199px);
+        --neck-y: 176px;
+        transform: translateX(-50%) scale(0.72);
     }
 
     .footer {
