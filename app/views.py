@@ -8,6 +8,21 @@ from django.views.decorators.http import require_POST, require_safe
 from .words import WORDS
 
 MAX_ERRORS = 8
+DIFFICULTY_CONFIG = {
+    'normal': {
+        'label': 'Normal',
+        'helps': 1,
+        'min_length': 0,
+        'message': 'Nueva partida normal. Tenés 1 ayuda disponible.',
+    },
+    'dificil': {
+        'label': 'Difícil',
+        'helps': 2,
+        'min_length': 8,
+        'message': 'Nueva partida difícil. Palabra larga y 2 ayudas disponibles.',
+    },
+}
+DEFAULT_DIFFICULTY = 'normal'
 TOTAL_SCENES = 5
 SESSION_KEY = 'hangman_state'
 SPANISH_ALPHABET = 'abcdefghijklmnñopqrstuvwxyz'
@@ -36,8 +51,25 @@ def _normalize_char(char):
     )
 
 
-def _create_state():
-    item = random.choice(WORDS)
+def _get_difficulty_config(difficulty):
+    return DIFFICULTY_CONFIG.get(difficulty, DIFFICULTY_CONFIG[DEFAULT_DIFFICULTY])
+
+
+def _select_word(difficulty):
+    config = _get_difficulty_config(difficulty)
+    available_words = [
+        item for item in WORDS
+        if len(item['word']) >= config['min_length']
+    ]
+    return random.choice(available_words or WORDS)
+
+
+def _create_state(difficulty=DEFAULT_DIFFICULTY):
+    if difficulty not in DIFFICULTY_CONFIG:
+        difficulty = DEFAULT_DIFFICULTY
+
+    config = _get_difficulty_config(difficulty)
+    item = _select_word(difficulty)
     return {
         'word': item['word'].lower(),
         'hint': item['hint'],
@@ -45,7 +77,11 @@ def _create_state():
         'wrong': [],
         'status': 'playing',
         'scene': random.randint(1, TOTAL_SCENES),
-        'message': 'Nueva partida. No la arruines en el primer intento.',
+        'difficulty': difficulty,
+        'difficulty_label': config['label'],
+        'helps_remaining': config['helps'],
+        'helps_total': config['helps'],
+        'message': config['message'],
     }
 
 
@@ -56,9 +92,21 @@ def _get_state(request):
         state = _create_state()
         request.session[SESSION_KEY] = state
 
-    # Compatibilidad por si una sesión vieja no tiene scene
+    changed = False
+
+    # Compatibilidad por si una sesión vieja no tiene scene/dificultad/ayudas
     if 'scene' not in state:
         state['scene'] = random.randint(1, TOTAL_SCENES)
+        changed = True
+
+    if 'difficulty' not in state:
+        state['difficulty'] = DEFAULT_DIFFICULTY
+        state['difficulty_label'] = DIFFICULTY_CONFIG[DEFAULT_DIFFICULTY]['label']
+        state['helps_remaining'] = DIFFICULTY_CONFIG[DEFAULT_DIFFICULTY]['helps']
+        state['helps_total'] = DIFFICULTY_CONFIG[DEFAULT_DIFFICULTY]['helps']
+        changed = True
+
+    if changed:
         request.session[SESSION_KEY] = state
 
     return state
@@ -144,6 +192,13 @@ def _build_context(state):
         'progress_percent': progress_percent,
         'hangman_steps': list(range(1, len(wrong) + 1)),
         'scene': state.get('scene', 1),
+        'difficulty': state.get('difficulty', DEFAULT_DIFFICULTY),
+        'difficulty_label': state.get(
+            'difficulty_label',
+            DIFFICULTY_CONFIG[DEFAULT_DIFFICULTY]['label'],
+        ),
+        'helps_remaining': state.get('helps_remaining', 0),
+        'helps_total': state.get('helps_total', 0),
     }
 
 
@@ -157,7 +212,8 @@ def index(request):
 
 @require_POST
 def new_game(request):
-    request.session[SESSION_KEY] = _create_state()
+    difficulty = request.POST.get('difficulty', DEFAULT_DIFFICULTY)
+    request.session[SESSION_KEY] = _create_state(difficulty)
     return redirect('index')
 
 
@@ -212,6 +268,42 @@ def guess_letter(request):
         state['message'] = f'Perdiste. La palabra era “{state["word"].upper()}”.'
     else:
         state['status'] = 'playing'
+
+    request.session[SESSION_KEY] = state
+    return redirect('index')
+
+
+@require_POST
+def use_help(request):
+    state = _get_state(request)
+
+    if state.get('status') in {'won', 'lost'}:
+        state['message'] = 'La partida terminó. La ayuda llegó tarde, como siempre.'
+        request.session[SESSION_KEY] = state
+        return redirect('index')
+
+    if state.get('helps_remaining', 0) <= 0:
+        state['message'] = 'Ya usaste todas las ayudas disponibles para esta dificultad.'
+        request.session[SESSION_KEY] = state
+        return redirect('index')
+
+    pending_letters = sorted(
+        _get_unique_letters(state['word']) - set(state.get('guessed', []))
+    )
+
+    if not pending_letters:
+        state['message'] = 'No quedan letras por revelar. Ya está todo servido.'
+        request.session[SESSION_KEY] = state
+        return redirect('index')
+
+    revealed_letter = random.choice(pending_letters)
+    state['guessed'].append(revealed_letter)
+    state['helps_remaining'] -= 1
+    state['message'] = f'Ayuda usada: revelamos la letra “{revealed_letter.upper()}”.'
+
+    if _get_unique_letters(state['word']).issubset(set(state['guessed'])):
+        state['status'] = 'won'
+        state['message'] = 'Ganaste con un empujoncito. También cuenta 😅'
 
     request.session[SESSION_KEY] = state
     return redirect('index')
