@@ -485,8 +485,8 @@ h1 {
 
 .rope {
     width: 10px;
-    height: 76px;
-    left: min(61%, 253px);
+    height: 34px;
+    left: 258px;
     top: 226px;
     background: linear-gradient(90deg, #5d4037 0 30%, #8d6e63 30% 70%, #5d4037 70%);
     border-radius: 999px;
@@ -516,8 +516,8 @@ h1 {
    ========================= */
 
 .character {
-    --neck-x: min(61%, 258px);
-    --neck-y: 300px;
+    --neck-x: 258px;
+    --neck-y: 330px;
     left: var(--neck-x);
     top: var(--neck-y);
     width: 1px;
@@ -998,12 +998,13 @@ h1 {
     }
 
     .rope {
-        left: min(66%, 230px);
+        left: 230px;
         top: 132px;
+        height: 28px;
     }
 
     .character {
-        --neck-x: min(66%, 235px);
+        --neck-x: 230px;
         --neck-y: 206px;
         transform: translateX(-50%) scale(0.82);
         transform-origin: top center;
@@ -1067,13 +1068,13 @@ h1 {
     }
 
     .rope {
-        left: min(72%, 194px);
+        left: 194px;
         top: 110px;
-        height: 68px;
+        height: 24px;
     }
 
     .character {
-        --neck-x: min(72%, 199px);
+        --neck-x: 194px;
         --neck-y: 176px;
         transform: translateX(-50%) scale(0.72);
     }
