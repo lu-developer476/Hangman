@@ -15,6 +15,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================
+  // MODAL DE NUEVA PARTIDA
+  // =========================
+  const newGameModal = document.querySelector('[data-new-game-modal]');
+  const openNewGame = document.querySelector('[data-open-new-game]');
+  const closeNewGame = document.querySelector('[data-close-new-game]');
+
+  if (newGameModal && openNewGame) {
+    openNewGame.addEventListener('click', () => {
+      if (typeof newGameModal.showModal === 'function') {
+        newGameModal.showModal();
+      }
+    });
+
+    newGameModal.addEventListener('click', (event) => {
+      if (event.target === newGameModal) {
+        newGameModal.close();
+      }
+    });
+  }
+
+  if (newGameModal && closeNewGame) {
+    closeNewGame.addEventListener('click', () => {
+      newGameModal.close();
+    });
+  }
+
+  // =========================
   // FOOTER - AÑO AUTOMÁTICO
   // =========================
   const year = document.querySelector('#year');

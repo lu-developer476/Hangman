@@ -1086,3 +1086,111 @@ h1 {
         display: none;
     }
 }
+
+.pill.difficulty {
+    background: #fff0f6;
+}
+
+.help-form {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.help-form small {
+    font-weight: 700;
+    opacity: 0.82;
+}
+
+.btn-help {
+    background: var(--yellow);
+    color: var(--ink);
+    justify-self: start;
+}
+
+.difficulty-modal {
+    width: min(92vw, 560px);
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--ink);
+}
+
+.difficulty-modal::backdrop {
+    background: rgba(35, 25, 66, 0.62);
+    backdrop-filter: blur(4px);
+}
+
+.difficulty-card {
+    position: relative;
+    display: grid;
+    gap: 18px;
+    padding: 28px;
+    border: var(--border);
+    border-radius: 28px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+}
+
+.difficulty-card h2,
+.difficulty-card p {
+    margin: 0;
+}
+
+.difficulty-card h2 {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    text-transform: uppercase;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 42px;
+    height: 42px;
+    border: var(--border);
+    border-radius: 50%;
+    background: var(--cyan);
+    color: var(--ink);
+    font-size: 1.6rem;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.difficulty-options {
+    display: grid;
+    gap: 14px;
+}
+
+.difficulty-option {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 16px;
+    border: var(--border);
+    border-radius: 18px;
+    background: #fff7dd;
+    cursor: pointer;
+}
+
+.difficulty-option:has(input:checked) {
+    background: var(--mint);
+}
+
+.difficulty-option input {
+    width: 24px;
+    height: 24px;
+    accent-color: var(--pink);
+}
+
+.difficulty-option strong,
+.difficulty-option small {
+    display: block;
+}
+
+.difficulty-option strong {
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}

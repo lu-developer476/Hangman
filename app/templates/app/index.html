@@ -23,10 +23,7 @@
                 </p>
 
                 <div class="actions">
-                    <form action="{% url 'new_game' %}" method="post">
-                        {% csrf_token %}
-                        <button class="btn btn-primary" type="submit">Nueva partida</button>
-                    </form>
+                    <button class="btn btn-primary" type="button" data-open-new-game>Nueva partida</button>
 
                     <form action="{% url 'reset_game' %}" method="post">
                         {% csrf_token %}
@@ -49,6 +46,7 @@
                     <h2>Escenario</h2>
                     <span class="pill">Errores: {{ errors }}/{{ max_errors }}</span>
                     <span class="pill soft">Vidas: {{ remaining_attempts }}</span>
+                    <span class="pill difficulty">{{ difficulty_label }}</span>
                 </div>
 
                 <div class="gallows-scene scene-{{ scene }} errors-{{ errors }}">
@@ -114,6 +112,18 @@
                     <span>Letras fallidas:</span> {{ wrong_letters }}
                 </p>
 
+                <form class="help-form" action="{% url 'use_help' %}" method="post">
+                    {% csrf_token %}
+                    <button
+                        class="btn btn-help"
+                        type="submit"
+                        {% if status != 'playing' or helps_remaining <= 0 %}disabled{% endif %}
+                    >
+                        Ayuda ({{ helps_remaining }}/{{ helps_total }})
+                    </button>
+                    <small>Revela una letra pendiente sin sumar errores.</small>
+                </form>
+
                 <form class="guess-form" action="{% url 'guess_letter' %}" method="post">
                     {% csrf_token %}
                     <label for="letter">Elegí una letra</label>
@@ -159,6 +169,35 @@
             </article>
         </section>
     </main>
+
+    <dialog class="difficulty-modal" data-new-game-modal aria-labelledby="difficulty-title">
+        <form class="difficulty-card" action="{% url 'new_game' %}" method="post">
+            {% csrf_token %}
+            <button class="modal-close" type="button" data-close-new-game aria-label="Cerrar">×</button>
+            <h2 id="difficulty-title">Elegí la dificultad</h2>
+            <p>Antes de arrancar, seleccioná cómo querés jugar esta partida.</p>
+
+            <div class="difficulty-options">
+                <label class="difficulty-option">
+                    <input type="radio" name="difficulty" value="normal" checked>
+                    <span>
+                        <strong>Normal</strong>
+                        <small>Palabras variadas y 1 ayuda para revelar una letra.</small>
+                    </span>
+                </label>
+
+                <label class="difficulty-option">
+                    <input type="radio" name="difficulty" value="dificil">
+                    <span>
+                        <strong>Difícil</strong>
+                        <small>Palabras largas y 2 ayudas para revelar letras.</small>
+                    </span>
+                </label>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Empezar partida</button>
+        </form>
+    </dialog>
 
     <footer class="footer">
         <span class="footer-item"> © <span id="year"></span>&nbsp;Todos los derechos reservados</span>

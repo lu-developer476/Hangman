@@ -29,6 +29,8 @@ class BasicViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Ahorcado Retro')
         self.assertContains(response, 'Vidas:')
+        self.assertContains(response, 'Elegí la dificultad')
+        self.assertContains(response, 'Ayuda (')
         self.assertContains(response, 'progress-track')
         self.assertContains(response, 'face dead')
 
@@ -56,3 +58,27 @@ class BasicViewsTest(TestCase):
         self.assertContains(response, 'Vidas: 0')
         self.assertContains(response, 'errors-8')
         self.assertContains(response, 'Perdiste')
+
+    def test_new_game_accepts_difficulty_and_help_reveals_letter(self):
+        self.client.post(reverse('new_game'), {'difficulty': 'dificil'})
+        session = self.client.session
+        state = session[SESSION_KEY]
+        self.assertEqual(state['difficulty'], 'dificil')
+        self.assertEqual(state['helps_remaining'], 2)
+        self.assertGreaterEqual(len(state['word']), 8)
+
+        response = self.client.post(reverse('use_help'), follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        session = self.client.session
+        state = session[SESSION_KEY]
+        self.assertEqual(state['helps_remaining'], 1)
+        self.assertEqual(len(state['guessed']), 1)
+        self.assertContains(response, 'Ayuda (1/2)')
+
+    def test_normal_difficulty_has_one_help(self):
+        self.client.post(reverse('new_game'), {'difficulty': 'normal'})
+        self.assertEqual(self.client.session[SESSION_KEY]['helps_remaining'], 1)
+
+        self.client.post(reverse('use_help'))
+        self.assertEqual(self.client.session[SESSION_KEY]['helps_remaining'], 0)

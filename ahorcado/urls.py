@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('nuevo/', views.new_game, name='new_game'),
     path('probar/', views.guess_letter, name='guess_letter'),
+    path('ayuda/', views.use_help, name='use_help'),
     path('reiniciar/', views.reset_game, name='reset_game'),
     path('health/', views.health, name='health'),
 ]
