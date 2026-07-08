@@ -234,6 +234,22 @@ h1 {
 }
 
 .gallows-scene {
+    --base-left: 70px;
+    --base-bottom: 96px;
+    --vertical-left: 112px;
+    --vertical-bottom: 110px;
+    --vertical-height: 250px;
+    --beam-left: 112px;
+    --beam-bottom: 332px;
+    --beam-width: 160px;
+    --beam-height: 22px;
+    --rope-x: calc(var(--beam-left) + var(--beam-width));
+    --rope-top: calc(100% - var(--beam-bottom) + var(--beam-height));
+    --rope-height: 44px;
+    --character-scale: 1;
+    --head-anchor-offset: 70px;
+    --neck-x: var(--rope-x);
+    --neck-y: calc(var(--rope-top) + var(--rope-height) + var(--head-anchor-offset));
     position: relative;
     min-height: 560px;
     height: 100%;
@@ -463,32 +479,32 @@ h1 {
 .base {
     width: 160px;
     height: 22px;
-    left: 70px;
-    bottom: 96px;
+    left: var(--base-left);
+    bottom: var(--base-bottom);
     border-radius: 14px;
 }
 
 .vertical {
     width: 24px;
-    height: 250px;
-    left: 112px;
-    bottom: 110px;
+    height: var(--vertical-height);
+    left: var(--vertical-left);
+    bottom: var(--vertical-bottom);
     border-radius: 12px;
 }
 
 .horizontal {
-    width: 160px;
-    height: 22px;
-    left: 112px;
-    bottom: 332px;
+    width: var(--beam-width);
+    height: var(--beam-height);
+    left: var(--beam-left);
+    bottom: var(--beam-bottom);
     border-radius: 12px;
 }
 
 .rope {
     width: 10px;
-    height: 34px;
-    left: 272px;
-    top: 238px;
+    height: var(--rope-height);
+    left: var(--rope-x);
+    top: var(--rope-top);
     background: linear-gradient(90deg, #5d4037 0 30%, #8d6e63 30% 70%, #5d4037 70%);
     border-radius: 999px;
     border: none;
@@ -517,8 +533,6 @@ h1 {
    ========================= */
 
 .character {
-    --neck-x: 272px;
-    --neck-y: 342px;
     left: var(--neck-x);
     top: var(--neck-y);
     width: 1px;
@@ -978,32 +992,22 @@ h1 {
         min-height: 420px;
     }
 
-    .base {
-        left: 46px;
-        bottom: 76px;
-    }
-
-    .vertical {
-        left: 88px;
-        bottom: 90px;
-        height: 220px;
-    }
-
-    .horizontal {
-        left: 88px;
-        bottom: 288px;
-    }
-
-    .rope {
-        left: 248px;
-        top: 150px;
-        height: 28px;
+    .gallows-scene {
+        --base-left: 46px;
+        --base-bottom: 76px;
+        --vertical-left: 88px;
+        --vertical-bottom: 90px;
+        --vertical-height: 220px;
+        --beam-left: 88px;
+        --beam-bottom: 288px;
+        --beam-width: 160px;
+        --rope-height: 38px;
+        --character-scale: 0.82;
+        --head-anchor-offset: 57.4px;
     }
 
     .character {
-        --neck-x: 248px;
-        --neck-y: 224px;
-        transform: translateX(-50%) scale(0.82);
+        transform: translateX(-50%) scale(var(--character-scale));
         transform-origin: top center;
     }
 }
@@ -1046,34 +1050,26 @@ h1 {
         display: none;
     }
 
+    .gallows-scene {
+        --base-left: 30px;
+        --base-bottom: 66px;
+        --vertical-left: 66px;
+        --vertical-bottom: 80px;
+        --vertical-height: 206px;
+        --beam-left: 66px;
+        --beam-bottom: 264px;
+        --beam-width: 142px;
+        --rope-height: 34px;
+        --character-scale: 0.72;
+        --head-anchor-offset: 50.4px;
+    }
+
     .base {
         width: 136px;
-        left: 30px;
-        bottom: 66px;
-    }
-
-    .vertical {
-        left: 66px;
-        bottom: 80px;
-        height: 206px;
-    }
-
-    .horizontal {
-        width: 142px;
-        left: 66px;
-        bottom: 264px;
-    }
-
-    .rope {
-        left: 212px;
-        top: 126px;
-        height: 24px;
     }
 
     .character {
-        --neck-x: 212px;
-        --neck-y: 192px;
-        transform: translateX(-50%) scale(0.72);
+        transform: translateX(-50%) scale(var(--character-scale));
     }
 
     .footer {
