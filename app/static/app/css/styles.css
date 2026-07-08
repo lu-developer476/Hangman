@@ -247,7 +247,7 @@ h1 {
     --rope-top: calc(100% - var(--beam-bottom) + var(--beam-height));
     --rope-height: 44px;
     --character-scale: 1;
-    --head-anchor-offset: 70px;
+    --head-anchor-offset: 30px;
     --neck-x: var(--rope-x);
     --neck-y: calc(var(--rope-top) + var(--rope-height) + var(--head-anchor-offset));
     position: relative;
@@ -516,12 +516,12 @@ h1 {
     content: "";
     position: absolute;
     left: 50%;
-    bottom: -12px;
-    width: 54px;
-    height: 34px;
+    top: calc(100% - 12px);
+    width: 58px;
+    height: 50px;
     border: 8px solid #5d4037;
-    border-bottom: 0;
-    border-radius: 999px 999px 0 0;
+    border-bottom-width: 8px;
+    border-radius: 50%;
     transform: translateX(-50%);
 }
 
@@ -1003,7 +1003,7 @@ h1 {
         --beam-width: 160px;
         --rope-height: 38px;
         --character-scale: 0.82;
-        --head-anchor-offset: 57.4px;
+        --head-anchor-offset: 24.6px;
     }
 
     .character {
@@ -1061,7 +1061,7 @@ h1 {
         --beam-width: 142px;
         --rope-height: 34px;
         --character-scale: 0.72;
-        --head-anchor-offset: 50.4px;
+        --head-anchor-offset: 21.6px;
     }
 
     .base {
