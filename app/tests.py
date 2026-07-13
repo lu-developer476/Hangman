@@ -28,7 +28,8 @@ class BasicViewsTest(TestCase):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Ahorcado Retro')
-        self.assertContains(response, 'Vidas:')
+        self.assertContains(response, 'Vidas')
+        self.assertContains(response, 'Riesgo')
         self.assertContains(response, 'Elegí la dificultad')
         self.assertContains(response, 'Ayuda (')
         self.assertContains(response, 'progress-track')
@@ -54,8 +55,8 @@ class BasicViewsTest(TestCase):
             self.client.post(reverse('guess_letter'), {'letter': letter})
 
         response = self.client.get(reverse('index'))
-        self.assertContains(response, f'Errores: {MAX_ERRORS}/{MAX_ERRORS}')
-        self.assertContains(response, 'Vidas: 0')
+        self.assertContains(response, f'{MAX_ERRORS}/{MAX_ERRORS}')
+        self.assertContains(response, '<strong>0</strong>', html=True)
         self.assertContains(response, 'errors-8')
         self.assertContains(response, 'Perdiste')
 
