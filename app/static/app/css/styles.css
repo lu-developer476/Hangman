@@ -63,6 +63,37 @@ body {
     display: none;
 }
 
+.rail-toggle {
+    width: 100%;
+    border: var(--border);
+    border-radius: 16px;
+    background: var(--cyan);
+    color: var(--ink);
+    box-shadow: 0 5px 0 rgba(35, 25, 66, 0.9);
+    padding: 9px 10px;
+    font: inherit;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.rail-toggle-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.rail-content {
+    display: grid;
+    gap: 12px;
+}
+
+.side-rail.is-collapsed .rail-content {
+    display: none;
+}
+
 .rail-card {
     width: 100%;
     border: var(--border);
@@ -158,13 +189,13 @@ body {
 }
 
 .hero-card {
-    padding: clamp(16px, 2vw, 24px);
+    padding: clamp(12px, 1.35vw, 18px);
     display: grid;
     grid-template-columns: minmax(280px, 1fr) auto;
     gap: clamp(18px, 4vw, 56px);
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -173,8 +204,8 @@ body {
 .hero-card::after {
     content: "";
     position: absolute;
-    width: clamp(110px, 12vw, 150px);
-    height: clamp(110px, 12vw, 150px);
+    width: clamp(82px, 9vw, 118px);
+    height: clamp(82px, 9vw, 118px);
     right: -24px;
     top: -24px;
     background: var(--yellow);
@@ -190,16 +221,16 @@ body {
 
 h1 {
     margin: 0;
-    font-size: clamp(2rem, 4.2vw, 3.7rem);
+    font-size: clamp(1.85rem, 3.45vw, 3.05rem);
     line-height: 0.95;
     text-transform: uppercase;
 }
 
 .lead {
     max-width: 62ch;
-    font-size: 1.06rem;
-    line-height: 1.55;
-    margin: 12px 0 0;
+    font-size: 1rem;
+    line-height: 1.45;
+    margin: 8px 0 0;
 }
 
 .sticker-box {
@@ -210,7 +241,7 @@ h1 {
 }
 
 .sticker {
-    width: clamp(150px, 16vw, 210px);
+    width: clamp(110px, 12vw, 155px);
     aspect-ratio: 1;
     border-radius: 50%;
     border: var(--border);
@@ -233,7 +264,7 @@ h1 {
 
 .sticker strong {
     display: block;
-    font-size: 2.3rem;
+    font-size: 1.75rem;
     text-transform: uppercase;
 }
 
@@ -241,7 +272,7 @@ h1 {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
-    margin-top: 16px;
+    margin-top: 12px;
 }
 
 .game-grid {
@@ -1064,14 +1095,36 @@ h1 {
         position: sticky;
         top: 12px;
         display: grid;
-        gap: 12px;
+        gap: 10px;
         max-height: calc(100vh - 24px);
         overflow: auto;
         z-index: 2;
     }
 
     .hero-card {
-        min-height: 190px;
+        min-height: 150px;
+    }
+
+    .layout:has(.side-rail-left.is-collapsed) {
+        grid-template-columns: 54px minmax(0, 1fr) minmax(112px, 10vw);
+    }
+
+    .layout:has(.side-rail-right.is-collapsed) {
+        grid-template-columns: minmax(112px, 9vw) minmax(0, 1fr) 54px;
+    }
+
+    .layout:has(.side-rail-left.is-collapsed):has(.side-rail-right.is-collapsed) {
+        grid-template-columns: 54px minmax(0, 1fr) 54px;
+    }
+
+    .side-rail.is-collapsed .rail-toggle {
+        min-height: 150px;
+        padding: 10px 6px;
+        writing-mode: vertical-rl;
+    }
+
+    .side-rail-left.is-collapsed .rail-toggle {
+        transform: rotate(180deg);
     }
 
     .panel {
@@ -1083,6 +1136,18 @@ h1 {
 @media (min-width: 1400px) {
     .layout {
         grid-template-columns: 150px minmax(0, 1fr) 170px;
+    }
+
+    .layout:has(.side-rail-left.is-collapsed) {
+        grid-template-columns: 54px minmax(0, 1fr) 170px;
+    }
+
+    .layout:has(.side-rail-right.is-collapsed) {
+        grid-template-columns: 150px minmax(0, 1fr) 54px;
+    }
+
+    .layout:has(.side-rail-left.is-collapsed):has(.side-rail-right.is-collapsed) {
+        grid-template-columns: 54px minmax(0, 1fr) 54px;
     }
 }
 
@@ -1107,13 +1172,15 @@ h1 {
 @media (max-width: 1179px) {
     .side-rail {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 10px;
         margin-bottom: 14px;
     }
 
+    .rail-content {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
     .side-rail-right {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
         margin-top: 18px;
         margin-bottom: 0;
     }
@@ -1158,8 +1225,8 @@ h1 {
 }
 
 @media (max-width: 620px) {
-    .side-rail,
-    .side-rail-right {
+    .side-rail .rail-content,
+    .side-rail-right .rail-content {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 

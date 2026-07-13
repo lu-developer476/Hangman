@@ -52,6 +52,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+
+  // =========================
+  // BARRAS LATERALES DESPLEGABLES
+  // =========================
+  const rails = document.querySelectorAll('[data-collapsible-rail]');
+
+  rails.forEach((rail) => {
+    const toggle = rail.querySelector('.rail-toggle');
+    const toggleIcon = rail.querySelector('.rail-toggle-icon');
+    const side = rail.dataset.railSide;
+
+    if (!toggle) return;
+
+    toggle.addEventListener('click', () => {
+      const isCollapsed = rail.classList.toggle('is-collapsed');
+      toggle.setAttribute('aria-expanded', String(!isCollapsed));
+
+      if (toggleIcon) {
+        toggleIcon.textContent = isCollapsed
+          ? (side === 'left' ? '›' : '‹')
+          : (side === 'left' ? '‹' : '›');
+      }
+    });
+  });
+
   // =========================
   // FOOTER - AÑO AUTOMÁTICO
   // =========================

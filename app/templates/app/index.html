@@ -13,7 +13,12 @@
     <div class="page-noise"></div>
 
     <main class="layout">
-        <aside class="side-rail side-rail-left" aria-label="Resumen de partida">
+        <aside class="side-rail side-rail-left" aria-label="Resumen de partida" data-collapsible-rail data-rail-side="left">
+            <button class="rail-toggle" type="button" aria-expanded="true">
+                <span class="rail-toggle-icon" aria-hidden="true">‹</span>
+                <span class="rail-toggle-text">Partida</span>
+            </button>
+            <div class="rail-content">
             <div class="rail-card">
                 <span class="rail-kicker">Partida</span>
                 <strong>{{ difficulty_label }}</strong>
@@ -35,6 +40,7 @@
                 <button class="mini-btn" type="submit" {% if status != 'playing' or helps_remaining <= 0 %}disabled{% endif %}>{{ helps_remaining }}/{{ helps_total }}</button>
                 <small>Revelar una letra</small>
             </form>
+            </div>
         </aside>
 
         <div class="content-shell">
@@ -195,7 +201,12 @@
         </section>
         </div>
 
-        <aside class="side-rail side-rail-right" aria-label="Accesos rápidos">
+        <aside class="side-rail side-rail-right" aria-label="Accesos rápidos" data-collapsible-rail data-rail-side="right">
+            <button class="rail-toggle" type="button" aria-expanded="true">
+                <span class="rail-toggle-icon" aria-hidden="true">›</span>
+                <span class="rail-toggle-text">Panel</span>
+            </button>
+            <div class="rail-content">
             <div class="rail-card progress-mini">
                 <span class="rail-kicker">Progreso</span>
                 <strong>{{ progress_percent }}%</strong>
@@ -214,6 +225,7 @@
                 <strong>↑</strong>
                 <small>Volver al inicio</small>
             </button>
+            </div>
         </aside>
     </main>
 
