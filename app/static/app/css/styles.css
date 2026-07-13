@@ -189,13 +189,13 @@ body {
 }
 
 .hero-card {
-    padding: clamp(12px, 1.35vw, 18px);
+    padding: clamp(8px, 1vw, 12px) clamp(12px, 1.4vw, 18px);
     display: grid;
-    grid-template-columns: minmax(280px, 1fr) auto;
-    gap: clamp(18px, 4vw, 56px);
+    grid-template-columns: minmax(220px, 1fr) auto;
+    gap: clamp(12px, 3vw, 34px);
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -204,8 +204,8 @@ body {
 .hero-card::after {
     content: "";
     position: absolute;
-    width: clamp(82px, 9vw, 118px);
-    height: clamp(82px, 9vw, 118px);
+    width: clamp(62px, 7vw, 88px);
+    height: clamp(62px, 7vw, 88px);
     right: -24px;
     top: -24px;
     background: var(--yellow);
@@ -221,16 +221,9 @@ body {
 
 h1 {
     margin: 0;
-    font-size: clamp(1.85rem, 3.45vw, 3.05rem);
+    font-size: clamp(1.65rem, 3vw, 2.55rem);
     line-height: 0.95;
     text-transform: uppercase;
-}
-
-.lead {
-    max-width: 62ch;
-    font-size: 1rem;
-    line-height: 1.45;
-    margin: 8px 0 0;
 }
 
 .sticker-box {
@@ -241,7 +234,7 @@ h1 {
 }
 
 .sticker {
-    width: clamp(110px, 12vw, 155px);
+    width: clamp(76px, 8.5vw, 108px);
     aspect-ratio: 1;
     border-radius: 50%;
     border: var(--border);
@@ -264,7 +257,7 @@ h1 {
 
 .sticker strong {
     display: block;
-    font-size: 1.75rem;
+    font-size: 1.35rem;
     text-transform: uppercase;
 }
 
@@ -272,7 +265,7 @@ h1 {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
-    margin-top: 12px;
+    margin-top: 8px;
 }
 
 .game-grid {
@@ -1102,7 +1095,7 @@ h1 {
     }
 
     .hero-card {
-        min-height: 150px;
+        min-height: 100px;
     }
 
     .layout:has(.side-rail-left.is-collapsed) {
@@ -1128,7 +1121,7 @@ h1 {
     }
 
     .panel {
-        max-height: calc(100vh - 290px);
+        max-height: calc(100vh - 230px);
         overflow: auto;
     }
 }
@@ -1157,7 +1150,7 @@ h1 {
     }
 
     .game-grid {
-        min-height: calc(100vh - 280px);
+        min-height: calc(100vh - 220px);
     }
 
     .panel {
@@ -1165,7 +1158,7 @@ h1 {
     }
 
     .gallows-scene {
-        min-height: clamp(380px, 35vw, 520px);
+        min-height: clamp(360px, 34vw, 500px);
     }
 }
 
