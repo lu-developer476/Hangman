@@ -349,13 +349,13 @@ h1 {
     --beam-bottom: 332px;
     --beam-width: 160px;
     --beam-height: 22px;
-    --rope-x: calc(var(--beam-left) + var(--beam-width) - var(--rope-inset, 22px));
+    --rope-x: calc(var(--beam-left) + var(--beam-width));
     --rope-top: calc(100% - var(--beam-bottom) + var(--beam-height));
     --rope-height: 44px;
     --rope-inset: 10px;
     --character-scale: 0.82;
     --head-anchor-offset: 20px;
-    --neck-x: var(--rope-x);
+    --neck-x: calc(var(--beam-left) + var(--beam-width) - var(--rope-inset, 22px));
     --neck-y: calc(var(--rope-top) + var(--rope-height) + var(--head-anchor-offset));
     position: relative;
     min-height: clamp(280px, 30vw, 410px);
