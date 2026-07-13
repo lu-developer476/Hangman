@@ -42,19 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================
-  // BARRA LATERAL - VOLVER ARRIBA
-  // =========================
-  const scrollTop = document.querySelector('[data-scroll-top]');
-
-  if (scrollTop) {
-    scrollTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-
-
-  // =========================
   // BARRAS LATERALES DESPLEGABLES
   // =========================
   const rails = document.querySelectorAll('[data-collapsible-rail]');
