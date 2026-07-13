@@ -13,6 +13,31 @@
     <div class="page-noise"></div>
 
     <main class="layout">
+        <aside class="side-rail side-rail-left" aria-label="Resumen de partida">
+            <div class="rail-card">
+                <span class="rail-kicker">Partida</span>
+                <strong>{{ difficulty_label }}</strong>
+                <small>Dificultad actual</small>
+            </div>
+            <div class="rail-card danger-meter">
+                <span class="rail-kicker">Riesgo</span>
+                <strong>{{ errors }}/{{ max_errors }}</strong>
+                <small>Errores acumulados</small>
+            </div>
+            <div class="rail-card">
+                <span class="rail-kicker">Vidas</span>
+                <strong>{{ remaining_attempts }}</strong>
+                <small>Intentos restantes</small>
+            </div>
+            <form class="rail-card rail-action" action="{% url 'use_help' %}" method="post">
+                {% csrf_token %}
+                <span class="rail-kicker">Ayuda</span>
+                <button class="mini-btn" type="submit" {% if status != 'playing' or helps_remaining <= 0 %}disabled{% endif %}>{{ helps_remaining }}/{{ helps_total }}</button>
+                <small>Revelar una letra</small>
+            </form>
+        </aside>
+
+        <div class="content-shell">
         <section class="hero-card">
             <div class="hero-copy">
                 <h1>Ahorcado Retro</h1>
@@ -168,6 +193,28 @@
                 </form>
             </article>
         </section>
+        </div>
+
+        <aside class="side-rail side-rail-right" aria-label="Accesos rápidos">
+            <div class="rail-card progress-mini">
+                <span class="rail-kicker">Progreso</span>
+                <strong>{{ progress_percent }}%</strong>
+                <div class="mini-track"><span style="--progress: {{ progress_percent }}%"></span></div>
+            </div>
+            <div class="rail-card compact-hint">
+                <span class="rail-kicker">Pista</span>
+                <small>{{ hint }}</small>
+            </div>
+            <div class="rail-card compact-status {{ status }}">
+                <span class="rail-kicker">Estado</span>
+                <small>{{ message }}</small>
+            </div>
+            <button class="rail-card rail-action rail-top" type="button" data-scroll-top>
+                <span class="rail-kicker">Arriba</span>
+                <strong>↑</strong>
+                <small>Volver al inicio</small>
+            </button>
+        </aside>
     </main>
 
     <dialog class="difficulty-modal" data-new-game-modal aria-labelledby="difficulty-title">
