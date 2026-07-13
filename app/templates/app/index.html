@@ -48,18 +48,8 @@
             <div class="hero-copy">
                 <h1>Ahorcado Retro</h1>
 
-                <p class="lead">
-                    Un clásico de toda la vida con estética cartoon.
-                    Probá suerte con las letras… y evitá condenar al pobre muñeco.
-                </p>
-
                 <div class="actions">
-                    <button class="btn btn-primary" type="button" data-open-new-game>Nueva partida</button>
-
-                    <form action="{% url 'reset_game' %}" method="post">
-                        {% csrf_token %}
-                        <button class="btn btn-secondary" type="submit">Reiniciar</button>
-                    </form>
+                    <button class="btn btn-primary" type="button" data-open-new-game>Jugar</button>
                 </div>
             </div>
 
