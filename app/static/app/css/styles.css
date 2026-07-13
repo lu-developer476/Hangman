@@ -134,46 +134,6 @@ body {
     background: #ffe7e7;
 }
 
-.progress-mini {
-    background: #e9ffef;
-}
-
-.compact-hint {
-    background: #fff7dd;
-}
-
-.compact-status {
-    background: #fff2fb;
-}
-
-.mini-track {
-    height: 10px;
-    margin-top: 8px;
-    border: 2px solid var(--ink);
-    border-radius: 999px;
-    overflow: hidden;
-    background: #fff;
-}
-
-.mini-track span {
-    display: block;
-    width: var(--progress);
-    height: 100%;
-    background: linear-gradient(90deg, var(--mint), var(--cyan), var(--blue));
-}
-
-.mini-btn {
-    width: 100%;
-    margin: 8px 0 4px;
-    border: var(--border);
-    border-radius: 12px;
-    padding: 8px;
-    background: var(--yellow);
-    color: var(--ink);
-    font-weight: 900;
-    cursor: pointer;
-}
-
 .rail-action {
     cursor: pointer;
     font: inherit;
@@ -1440,10 +1400,6 @@ h1 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .compact-hint,
-    .compact-status {
-        grid-column: 1 / -1;
-    }
     .layout {
         width: 100%;
         margin: 0;
@@ -1512,10 +1468,6 @@ h1 {
     .footer-separator {
         display: none;
     }
-}
-
-.pill.difficulty {
-    background: #fff0f6;
 }
 
 .help-form {
