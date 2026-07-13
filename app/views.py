@@ -188,6 +188,13 @@ def _build_context(state):
         'message': state.get('message', ''),
         'status': status,
         'word': word,
+        'word_length': len(word),
+        'word_length_class': (
+            'word-short' if len(word) <= 7 else
+            'word-medium' if len(word) <= 10 else
+            'word-long' if len(word) <= 13 else
+            'word-extra-long'
+        ),
         'alphabet': alphabet,
         'progress_percent': progress_percent,
         'hangman_steps': list(range(1, len(wrong) + 1)),

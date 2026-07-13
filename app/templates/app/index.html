@@ -118,7 +118,7 @@
                     <div class="progress-fill" style="--progress: {{ progress_percent }}%"></div>
                 </div>
 
-                <div class="word-display" aria-label="Palabra oculta">
+                <div class="word-display {{ word_length_class }}" aria-label="Palabra oculta" style="--letter-count: {{ word_length }}">
                     {{ masked_word }}
                 </div>
 
