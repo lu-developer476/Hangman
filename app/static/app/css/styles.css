@@ -26,6 +26,8 @@ body {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     font-family: "Trebuchet MS", "Verdana", sans-serif;
     background:
         radial-gradient(circle at top left, rgba(255, 79, 163, 0.15), transparent 35%),
@@ -47,9 +49,10 @@ body {
 .layout {
     width: 100%;
     max-width: none;
-    min-height: 100vh;
+    flex: 1 0 auto;
+    min-height: 0;
     margin: 0;
-    padding: clamp(12px, 1.6vw, 20px);
+    padding: clamp(6px, 1vw, 14px);
     position: relative;
     z-index: 1;
 }
@@ -185,7 +188,7 @@ body {
     background: var(--paper);
     border: var(--border);
     border-radius: 28px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 5px 0 rgba(35, 25, 66, 0.9);
 }
 
 .hero-card {
@@ -271,13 +274,13 @@ h1 {
 .game-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px;
+    gap: 12px;
     width: 100%;
     align-items: stretch;
 }
 
 .panel {
-    padding: clamp(16px, 1.6vw, 22px);
+    padding: clamp(10px, 1vw, 16px);
     min-height: auto;
     display: flex;
     flex-direction: column;
@@ -289,7 +292,7 @@ h1 {
     gap: 12px;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
 }
 
 .panel-header h2 {
@@ -362,15 +365,16 @@ h1 {
     --beam-bottom: 332px;
     --beam-width: 160px;
     --beam-height: 22px;
-    --rope-x: calc(var(--beam-left) + var(--beam-width));
+    --rope-x: calc(var(--beam-left) + var(--beam-width) - var(--rope-inset, 22px));
     --rope-top: calc(100% - var(--beam-bottom) + var(--beam-height));
     --rope-height: 44px;
+    --rope-inset: 22px;
     --character-scale: 1;
     --head-anchor-offset: 30px;
     --neck-x: var(--rope-x);
     --neck-y: calc(var(--rope-top) + var(--rope-height) + var(--head-anchor-offset));
     position: relative;
-    min-height: clamp(360px, 38vw, 500px);
+    min-height: clamp(280px, 30vw, 410px);
     height: 100%;
     border: var(--border);
     border-radius: 24px;
@@ -1052,12 +1056,13 @@ h1 {
 }
 
 .footer {
-    margin-top: 18px;
-    padding: 14px 18px;
+    flex-shrink: 0;
+    margin: 8px 18px 10px;
+    padding: 8px 14px;
     border: var(--border);
     border-radius: 24px;
     background: var(--paper);
-    box-shadow: var(--shadow);
+    box-shadow: 0 5px 0 rgba(35, 25, 66, 0.9);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -1233,20 +1238,145 @@ h1 {
 
 @media (min-width: 1024px) {
     .layout {
-        padding: 14px 18px 22px;
+        padding: 6px 10px 8px;
+    }
+
+    .hero-card {
+        min-height: 0;
+        margin-bottom: 6px;
+        padding: 6px 10px;
+    }
+
+    h1 {
+        font-size: clamp(1.2rem, 2vw, 1.8rem);
+    }
+
+    .actions {
+        margin-top: 4px;
+    }
+
+    .sticker {
+        width: clamp(54px, 6vw, 76px);
     }
 
     .game-grid {
-        min-height: calc(100vh - 190px);
+        min-height: 0;
     }
 
     .panel {
         min-height: auto;
+        max-height: none;
+    }
+
+    .panel-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .pill {
+        padding: 5px 10px;
+        font-size: 0.9rem;
     }
 
     .gallows-scene {
-        min-height: clamp(300px, 28vw, 430px);
+        --base-left: 54px;
+        --base-bottom: 58px;
+        --vertical-left: 94px;
+        --vertical-bottom: 72px;
+        --vertical-height: 178px;
+        --beam-left: 94px;
+        --beam-bottom: 232px;
+        --beam-width: 148px;
+        --beam-height: 18px;
+        --rope-height: 32px;
+        --rope-inset: 24px;
+        --character-scale: 0.72;
+        --head-anchor-offset: 21.6px;
+        min-height: clamp(250px, 24vw, 330px);
     }
+
+    .ground {
+        height: 72px;
+    }
+
+    .base {
+        width: 140px;
+    }
+
+    .vertical {
+        width: 22px;
+    }
+
+    .horizontal {
+        height: var(--beam-height);
+    }
+
+    .character {
+        transform: translateX(-50%) scale(var(--character-scale));
+        transform-origin: top center;
+    }
+
+    .status-box {
+        margin-top: 8px;
+        padding: 8px 12px;
+        font-size: 0.92rem;
+    }
+
+    .hint,
+    .message,
+    .wrong-letters {
+        margin: 6px 0;
+        padding: 7px 10px;
+        line-height: 1.25;
+        font-size: 0.9rem;
+    }
+
+    .progress-track {
+        height: 12px;
+    }
+
+    .word-display {
+        margin: 8px 0;
+        padding: 9px 10px;
+        font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+    }
+
+    .help-form {
+        gap: 5px;
+        margin-bottom: 8px;
+    }
+
+    .btn {
+        padding: 8px 13px;
+        font-size: 0.95rem;
+        box-shadow: 0 5px 0 rgba(35, 25, 66, 0.9);
+    }
+
+    .guess-form label {
+        margin-bottom: 6px;
+        font-size: 0.92rem;
+    }
+
+    .guess-row {
+        grid-template-columns: 82px 1fr;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .guess-row input {
+        font-size: 1.6rem;
+    }
+
+    .keyboard {
+        gap: 6px;
+    }
+
+    .key {
+        min-height: 30px;
+        border-radius: 12px;
+        font-size: 0.92rem;
+        box-shadow: 0 4px 0 rgba(35, 25, 66, 0.9);
+    }
+
 }
 
 @media (max-width: 1179px) {
