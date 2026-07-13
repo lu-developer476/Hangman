@@ -352,7 +352,7 @@ h1 {
     --rope-width: 10px;
     --rope-half-width: 5px;
     --rope-x: calc(var(--beam-left) + var(--beam-width) - (var(--beam-height) / 2));
-    --rope-top: calc(100% - var(--beam-bottom) + (var(--beam-height) / 2));
+    --rope-top: calc(100% - var(--beam-bottom));
     --rope-height: 44px;
     --noose-width: 54px;
     --noose-height: 46px;
@@ -624,6 +624,7 @@ h1 {
     border: none;
     transform: translateX(-50%);
     display: none;
+    z-index: 2;
 }
 
 .rope::after {
