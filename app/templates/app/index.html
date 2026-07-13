@@ -88,19 +88,25 @@
                 </div>
 
                 <div class="status-box {{ status }}">
-                    {% if status == 'won' %}
-                        <strong>Ganaste.</strong> Muy bien, seguí así.
-                    {% elif status == 'lost' %}
-                        <strong>Perdiste.</strong> ¡Ups! La palabra correcta era <span>{{ word }}</span>.
-                    {% else %}
-                        <strong>En juego.</strong> Todavía podés resolverlo, ánimo.
-                    {% endif %}
+                    {{ message }}
                 </div>
             </article>
 
             <article class="panel puzzle-panel">
-                <div class="panel-header">
-                    <h2>Palabra</h2>
+                <div class="panel-header word-header">
+                    <div class="word-title-actions">
+                        <h2>Palabra</h2>
+                        <form class="help-form" action="{% url 'use_help' %}" method="post">
+                            {% csrf_token %}
+                            <button
+                                class="btn btn-help"
+                                type="submit"
+                                {% if status != 'playing' or helps_remaining <= 0 %}disabled{% endif %}
+                            >
+                                Ayuda ({{ helps_remaining }}/{{ helps_total }})
+                            </button>
+                        </form>
+                    </div>
                     <span class="pill accent">Completado: {{ progress_percent }}%</span>
                 </div>
 
@@ -116,30 +122,12 @@
                     {{ masked_word }}
                 </div>
 
-                <p class="message">
-                    {{ message }}
-                </p>
-
                 <p class="wrong-letters">
                     <span>Letras fallidas:</span> {{ wrong_letters }}
                 </p>
 
-                <form class="help-form" action="{% url 'use_help' %}" method="post">
-                    {% csrf_token %}
-                    <button
-                        class="btn btn-help"
-                        type="submit"
-                        {% if status != 'playing' or helps_remaining <= 0 %}disabled{% endif %}
-                    >
-                        Ayuda ({{ helps_remaining }}/{{ helps_total }})
-                    </button>
-                    <small>Revela una letra pendiente sin sumar errores.</small>
-                </form>
-
                 <form class="guess-form" action="{% url 'guess_letter' %}" method="post">
                     {% csrf_token %}
-                    <label for="letter">Elegí una letra</label>
-
                     <div class="guess-row">
                         <input
                             id="letter"

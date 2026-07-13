@@ -261,6 +261,22 @@ h1 {
     text-transform: uppercase;
 }
 
+.word-header {
+    align-items: flex-start;
+}
+
+.word-title-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.word-title-actions .help-form {
+    margin: 0;
+}
+
+
 .pill {
     padding: 7px 12px;
     border-radius: 999px;
@@ -958,7 +974,7 @@ h1 {
 
 .keyboard {
     display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-columns: repeat(9, minmax(0, 1fr));
     gap: 8px;
 }
 
@@ -1337,6 +1353,10 @@ h1 {
 }
 
 @media (max-width: 900px) {
+    .keyboard {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
     .hero-card,
     .game-grid {
         grid-template-columns: 1fr;
@@ -1453,11 +1473,6 @@ h1 {
     display: grid;
     gap: 8px;
     margin-bottom: 18px;
-}
-
-.help-form small {
-    font-weight: 700;
-    opacity: 0.82;
 }
 
 .btn-help {
@@ -1603,18 +1618,9 @@ h1 {
     .puzzle-panel .message,
     .puzzle-panel .wrong-letters,
     .puzzle-panel .word-display,
-    .puzzle-panel .help-form,
     .puzzle-panel .guess-row {
         margin-top: 0;
         margin-bottom: 0;
-    }
-
-    .puzzle-panel .help-form {
-        gap: 4px;
-    }
-
-    .puzzle-panel .help-form small {
-        font-size: 0.8rem;
     }
 
     .footer {
@@ -1733,15 +1739,9 @@ h1 {
         line-height: 1;
     }
 
-    .puzzle-panel .help-form {
-        gap: 2px;
-        margin-bottom: 2px;
-    }
-
-    .puzzle-panel .help-form small,
-    .guess-form label {
-        font-size: 0.78rem;
-        line-height: 1.1;
+    .word-title-actions .help-form {
+        gap: 0;
+        margin-bottom: 0;
     }
 
     .puzzle-panel .btn-help {
@@ -1767,12 +1767,13 @@ h1 {
     }
 
     .puzzle-panel .keyboard {
+        grid-template-columns: repeat(9, minmax(0, 1fr));
         gap: 5px;
         margin-top: 1px;
     }
 
     .puzzle-panel .key {
-        min-height: 27px;
+        min-height: 26px;
         border-radius: 10px;
         font-size: 0.86rem;
         box-shadow: 0 3px 0 rgba(35, 25, 66, 0.9);
