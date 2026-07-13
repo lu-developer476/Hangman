@@ -42,6 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================
+  // BARRA LATERAL - VOLVER ARRIBA
+  // =========================
+  const scrollTop = document.querySelector('[data-scroll-top]');
+
+  if (scrollTop) {
+    scrollTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // =========================
   // FOOTER - AÑO AUTOMÁTICO
   // =========================
   const year = document.querySelector('#year');
