@@ -349,14 +349,20 @@ h1 {
     --beam-bottom: 332px;
     --beam-width: 160px;
     --beam-height: 22px;
-    --rope-x: calc(var(--beam-left) + var(--beam-width));
+    --rope-width: 10px;
+    --rope-half-width: 5px;
+    --rope-x: calc(var(--beam-left) + var(--beam-width) - var(--rope-half-width));
     --rope-top: calc(100% - var(--beam-bottom) + var(--beam-height));
     --rope-height: 44px;
-    --rope-inset: 10px;
+    --noose-width: 54px;
+    --noose-height: 46px;
+    --noose-border: 8px;
+    --noose-overlap: 8px;
     --character-scale: 0.82;
-    --head-anchor-offset: 20px;
-    --neck-x: calc(var(--beam-left) + var(--beam-width) - var(--rope-inset, 22px));
-    --neck-y: calc(var(--rope-top) + var(--rope-height) + var(--head-anchor-offset));
+    --head-center-offset: 29px;
+    --noose-center-offset: 23px;
+    --neck-x: var(--rope-x);
+    --neck-y: calc(var(--rope-top) + var(--rope-height) + var(--noose-center-offset) + var(--head-center-offset));
     position: relative;
     min-height: clamp(280px, 30vw, 410px);
     max-width: 100%;
@@ -609,7 +615,7 @@ h1 {
 }
 
 .rope {
-    width: 10px;
+    width: var(--rope-width);
     height: var(--rope-height);
     left: var(--rope-x);
     top: var(--rope-top);
@@ -625,10 +631,10 @@ h1 {
     position: absolute;
     left: 50%;
     top: calc(100% - 8px);
-    width: 54px;
-    height: 46px;
-    border: 8px solid #5d4037;
-    border-bottom-width: 8px;
+    width: var(--noose-width);
+    height: var(--noose-height);
+    border: var(--noose-border) solid #5d4037;
+    border-bottom-width: var(--noose-border);
     border-radius: 50%;
     transform: translateX(-50%);
 }
@@ -1146,9 +1152,8 @@ h1 {
         --beam-width: 150px;
         --beam-height: 20px;
         --rope-height: 34px;
-        --rope-inset: 12px;
         --character-scale: 0.68;
-        --head-anchor-offset: 16px;
+        --head-center-offset: 24px;
     }
 
     .ground {
@@ -1280,9 +1285,8 @@ h1 {
         --beam-width: 148px;
         --beam-height: 18px;
         --rope-height: 30px;
-        --rope-inset: 12px;
         --character-scale: 0.6;
-        --head-anchor-offset: 14px;
+        --head-center-offset: 21px;
         min-height: clamp(250px, 24vw, 330px);
     }
 
@@ -1437,9 +1441,8 @@ h1 {
         --beam-bottom: 288px;
         --beam-width: 160px;
         --rope-height: 34px;
-        --rope-inset: 12px;
         --character-scale: 0.68;
-        --head-anchor-offset: 16px;
+        --head-center-offset: 24px;
     }
 
     .character {
@@ -1542,9 +1545,8 @@ h1 {
         --beam-bottom: 264px;
         --beam-width: 142px;
         --rope-height: 30px;
-        --rope-inset: 12px;
         --character-scale: 0.6;
-        --head-anchor-offset: 14px;
+        --head-center-offset: 21px;
     }
 
     .base {
@@ -1609,9 +1611,8 @@ h1 {
         --beam-bottom: 230px;
         --beam-width: min(132px, 48vw);
         --rope-height: 28px;
-        --rope-inset: 10px;
         --character-scale: 0.52;
-        --head-anchor-offset: 12px;
+        --head-center-offset: 18px;
         min-height: clamp(280px, 50svh, 340px);
     }
 
@@ -1825,9 +1826,8 @@ h1 {
         --beam-width: 138px;
         --beam-height: 18px;
         --rope-height: 28px;
-        --rope-inset: 11px;
         --character-scale: 0.56;
-        --head-anchor-offset: 13px;
+        --head-center-offset: 20px;
     }
 
     .ground {
@@ -1948,21 +1948,22 @@ h1 {
     }
 
     .gallows-scene {
-        --rope-inset: 12px;
         --rope-height: 26px;
-        --head-anchor-offset: 13px;
+        --rope-width: 8px;
+        --rope-half-width: 4px;
+        --noose-width: 40px;
+        --noose-height: 35px;
+        --noose-border: 6px;
+        --noose-overlap: 5px;
+        --noose-center-offset: 19px;
     }
 
     .rope {
-        width: 8px;
         z-index: 4;
     }
 
     .rope::after {
         top: calc(100% - 5px);
-        width: 40px;
-        height: 35px;
-        border-width: 6px;
         z-index: -1;
     }
 
@@ -1986,9 +1987,8 @@ h1 {
         --beam-bottom: 218px;
         --beam-width: 142px;
         --rope-height: 26px;
-        --rope-inset: 11px;
         --character-scale: 0.54;
-        --head-anchor-offset: 12px;
+        --head-center-offset: 19px;
     }
 
     .gallows-panel .gallows-scene {
