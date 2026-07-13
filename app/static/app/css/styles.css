@@ -1697,3 +1697,144 @@ h1 {
         min-height: 28px;
     }
 }
+
+/* Ajuste fino desktop: la pantalla Palabra entra completa en alto bajo
+   y el muñeco queda centrado en la soga sin invadir el suelo. */
+@media (min-width: 1024px) {
+    .puzzle-panel {
+        gap: 5px;
+    }
+
+    .puzzle-panel .panel-header {
+        margin-bottom: 2px;
+    }
+
+    .puzzle-panel .hint,
+    .puzzle-panel .message,
+    .puzzle-panel .wrong-letters {
+        padding: 5px 10px;
+        line-height: 1.15;
+        font-size: 0.86rem;
+    }
+
+    .puzzle-panel .progress-track {
+        height: 7px;
+        border-width: 2px;
+    }
+
+    .puzzle-panel .word-display {
+        margin: 2px 0;
+        padding: 8px 10px;
+        min-height: 52px;
+        display: grid;
+        place-items: center;
+        font-size: clamp(1.25rem, 2vw, 1.75rem);
+        letter-spacing: 0.22em;
+        line-height: 1;
+    }
+
+    .puzzle-panel .help-form {
+        gap: 2px;
+        margin-bottom: 2px;
+    }
+
+    .puzzle-panel .help-form small,
+    .guess-form label {
+        font-size: 0.78rem;
+        line-height: 1.1;
+    }
+
+    .puzzle-panel .btn-help {
+        padding: 7px 12px;
+        box-shadow: 0 4px 0 rgba(35, 25, 66, 0.9);
+    }
+
+    .puzzle-panel .guess-row {
+        grid-template-columns: 82px 1fr;
+        gap: 8px;
+        margin-bottom: 2px;
+    }
+
+    .puzzle-panel .guess-row input {
+        min-height: 41px;
+        font-size: 1.35rem;
+    }
+
+    .puzzle-panel .guess-row .btn {
+        min-height: 41px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .puzzle-panel .keyboard {
+        gap: 5px;
+        margin-top: 1px;
+    }
+
+    .puzzle-panel .key {
+        min-height: 27px;
+        border-radius: 10px;
+        font-size: 0.86rem;
+        box-shadow: 0 3px 0 rgba(35, 25, 66, 0.9);
+    }
+
+    .gallows-scene {
+        --rope-inset: 25px;
+        --rope-height: 28px;
+        --head-anchor-offset: 19px;
+    }
+
+    .rope {
+        width: 8px;
+        z-index: 4;
+    }
+
+    .rope::after {
+        top: calc(100% - 7px);
+        width: 42px;
+        height: 37px;
+        border-width: 6px;
+        z-index: -1;
+    }
+
+    .character {
+        z-index: 5;
+    }
+}
+
+@media (min-width: 1180px) and (max-height: 820px) {
+    .hero-card {
+        min-height: 76px;
+    }
+
+    .gallows-scene {
+        --base-left: 52px;
+        --base-bottom: 50px;
+        --vertical-left: 90px;
+        --vertical-bottom: 64px;
+        --vertical-height: 172px;
+        --beam-left: 90px;
+        --beam-bottom: 218px;
+        --beam-width: 142px;
+        --rope-height: 28px;
+        --rope-inset: 25px;
+        --character-scale: 0.66;
+        --head-anchor-offset: 18px;
+    }
+
+    .gallows-panel .gallows-scene {
+        min-height: 0;
+    }
+
+    .ground {
+        height: 64px;
+    }
+
+    .base {
+        width: 138px;
+    }
+
+    .puzzle-panel .key {
+        min-height: 26px;
+    }
+}
