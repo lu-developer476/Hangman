@@ -23,6 +23,7 @@ body {
     padding: 0;
     width: 100%;
     min-height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -60,6 +61,7 @@ body {
 
 .content-shell {
     min-width: 0;
+    width: 100%;
 }
 
 .side-rail {
@@ -351,6 +353,7 @@ h1 {
     --neck-y: calc(var(--rope-top) + var(--rope-height) + var(--head-anchor-offset));
     position: relative;
     min-height: clamp(280px, 30vw, 410px);
+    max-width: 100%;
     height: 100%;
     border: var(--border);
     border-radius: 24px;
@@ -976,6 +979,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(9, minmax(0, 1fr));
     gap: 8px;
+    width: 100%;
 }
 
 .key {
@@ -1340,19 +1344,40 @@ h1 {
 }
 
 @media (max-width: 1179px) {
+    body {
+        min-height: 100svh;
+    }
+
+    .layout {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-height: calc(100svh - 74px);
+    }
+
     .side-rail {
         display: grid;
         gap: 10px;
-        margin-bottom: 14px;
+        margin-bottom: clamp(10px, 2vw, 16px);
     }
 
     .rail-content {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .game-grid {
+        gap: clamp(12px, 2.4vw, 20px);
+    }
+
+    .panel {
+        min-width: 0;
+    }
 }
 
 @media (max-width: 900px) {
+    .layout {
+        min-height: auto;
+    }
+
     .keyboard {
         grid-template-columns: repeat(7, minmax(0, 1fr));
     }
@@ -1363,7 +1388,7 @@ h1 {
     }
 
     .sticker-box {
-        justify-content: flex-start;
+        justify-content: flex-end;
     }
 
     .panel {
@@ -1371,7 +1396,7 @@ h1 {
     }
 
     .gallows-scene {
-        min-height: 420px;
+        min-height: clamp(340px, 52svh, 460px);
     }
 
     .gallows-scene {
@@ -1402,13 +1427,34 @@ h1 {
     .layout {
         width: 100%;
         margin: 0;
-        padding: 12px;
+        padding: clamp(8px, 3vw, 12px);
+    }
+
+    .hero-card {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
     }
 
     .hero-card,
     .panel {
-        padding: 18px;
+        padding: clamp(12px, 4vw, 18px);
         border-radius: 22px;
+    }
+
+    .panel-header,
+    .word-title-actions {
+        gap: 8px;
+    }
+
+    .pill,
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .word-title-actions,
+    .word-title-actions .help-form {
+        width: 100%;
     }
 
     .guess-row {
@@ -1421,10 +1467,12 @@ h1 {
 
     .word-display {
         letter-spacing: 0.14em;
+        font-size: clamp(1.25rem, 8vw, 2rem);
+        overflow-wrap: anywhere;
     }
 
     .gallows-scene {
-        min-height: 380px;
+        min-height: clamp(310px, 55svh, 390px);
     }
 
     .sun {
@@ -1459,13 +1507,84 @@ h1 {
     }
 
     .footer {
+        margin: 8px;
         gap: 8px;
-        padding: 16px;
+        padding: 12px;
         font-size: 0.9rem;
     }
 
     .footer-separator {
         display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    :root {
+        --border: 2px solid #231942;
+        --shadow: 0 5px 0 rgba(35, 25, 66, 0.9);
+    }
+
+    .side-rail .rail-content {
+        grid-template-columns: 1fr;
+    }
+
+    .rail-card {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: clamp(1.25rem, 9vw, 1.75rem);
+    }
+
+    .sticker {
+        width: clamp(54px, 18vw, 70px);
+        box-shadow: 0 5px 0 rgba(35, 25, 66, 0.9);
+    }
+
+    .keyboard {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+    .key {
+        min-height: 42px;
+    }
+
+    .gallows-scene {
+        --base-left: 20px;
+        --base-bottom: 58px;
+        --vertical-left: 50px;
+        --vertical-bottom: 70px;
+        --vertical-height: 178px;
+        --beam-left: 50px;
+        --beam-bottom: 230px;
+        --beam-width: min(132px, 48vw);
+        --rope-height: 30px;
+        --rope-inset: 20px;
+        --character-scale: 0.62;
+        --head-anchor-offset: 18.6px;
+        min-height: clamp(280px, 50svh, 340px);
+    }
+
+    .ground {
+        height: 62px;
+    }
+
+    .base {
+        width: min(126px, 52vw);
+    }
+
+    .cloud-a {
+        left: 18px;
+        transform: scale(0.75);
+        transform-origin: left top;
+    }
+
+    .sun {
+        width: 48px;
+        height: 48px;
+        right: 18px;
+        top: 24px;
     }
 }
 
