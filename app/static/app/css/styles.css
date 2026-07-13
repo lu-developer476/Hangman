@@ -1121,8 +1121,95 @@ h1 {
     }
 
     .panel {
-        max-height: calc(100vh - 230px);
+        max-height: calc(100vh - 190px);
         overflow: auto;
+        padding: clamp(12px, 1.2vw, 18px);
+    }
+
+    .panel-header {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .gallows-scene {
+        --base-left: 62px;
+        --base-bottom: 74px;
+        --vertical-left: 102px;
+        --vertical-bottom: 88px;
+        --vertical-height: 205px;
+        --beam-left: 102px;
+        --beam-bottom: 270px;
+        --beam-width: 150px;
+        --beam-height: 20px;
+        --rope-height: 36px;
+        --character-scale: 0.82;
+        --head-anchor-offset: 24.6px;
+    }
+
+    .ground {
+        height: 88px;
+    }
+
+    .base {
+        width: 142px;
+    }
+
+    .character {
+        transform: translateX(-50%) scale(var(--character-scale));
+        transform-origin: top center;
+    }
+
+    .sun {
+        width: 62px;
+        height: 62px;
+        top: 22px;
+        right: 26px;
+    }
+
+    .cloud-a {
+        left: 28px;
+        top: 32px;
+        transform: scale(0.9);
+        transform-origin: left top;
+    }
+
+    .cloud-b {
+        left: 150px;
+        top: 76px;
+        transform: scale(0.85);
+        transform-origin: left top;
+    }
+
+    .hint,
+    .message,
+    .wrong-letters {
+        margin: 8px 0;
+        padding: 8px 12px;
+        line-height: 1.35;
+    }
+
+    .word-display {
+        margin: 10px 0;
+        padding: 12px;
+        font-size: clamp(1.45rem, 3vw, 2.2rem);
+    }
+
+    .help-form {
+        margin-bottom: 12px;
+    }
+
+    .guess-row {
+        grid-template-columns: 88px 1fr;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .keyboard {
+        gap: 7px;
+    }
+
+    .key {
+        min-height: 34px;
     }
 }
 
@@ -1150,7 +1237,7 @@ h1 {
     }
 
     .game-grid {
-        min-height: calc(100vh - 220px);
+        min-height: calc(100vh - 190px);
     }
 
     .panel {
@@ -1158,7 +1245,7 @@ h1 {
     }
 
     .gallows-scene {
-        min-height: clamp(360px, 34vw, 500px);
+        min-height: clamp(300px, 28vw, 430px);
     }
 }
 
